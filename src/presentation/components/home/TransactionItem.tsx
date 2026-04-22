@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { colors as staticColors } from '../../../shared/theme/colors';
-import { Payin } from '../../../domain';
+
 import {
   BodyText,
   formatAmount,
@@ -11,10 +11,11 @@ import {
   widthFullScreen,
 } from '../../../shared';
 import { StatusBadge } from './StatusBadge';
+import { PayIn } from '../../../domain';
 
 interface TransactionItemProps {
-  item: Payin;
-  onPress?: (item: Payin) => void;
+  item: PayIn;
+  onPress?: (item: PayIn) => void;
   customKey: number;
 }
 
@@ -30,10 +31,10 @@ export const TransactionItem = ({
   onPress,
 }: TransactionItemProps): JSX.Element => {
   const { colors } = useAppTheme();
-  const isPositive = item.status !== 'FAILED';
+  const isPositive = item.getStatus() !== 'FAILED';
   const amountColor = isPositive ? staticColors.success : staticColors.error;
   const iconBg =
-    item.payment_method === 'CARD'
+    item.getPaymentMethod() === 'CARD'
       ? staticColors.transactionIconBg
       : staticColors.transactionIconBgNeutral;
   const showTopBorder = customKey !== 0;
@@ -52,7 +53,7 @@ export const TransactionItem = ({
     >
       <View style={[styles.iconContainer, { backgroundColor: iconBg }]}>
         <LabelText size="large" style={styles.icon}>
-          {PAYMENT_METHOD_ICON[item.payment_method] ?? '💳'}
+          {PAYMENT_METHOD_ICON[item.getPaymentMethod()] ?? '💳'}
         </LabelText>
       </View>
 
@@ -62,18 +63,20 @@ export const TransactionItem = ({
           color={colors.onSurface}
           style={styles.description}
         >
-          {item.description}
+          {item.getDescription()}
         </BodyText>
         <View style={styles.meta}>
           <LabelText size="small" color={colors.onSurfaceVariant}>
-            {`${formatDate(item.created_at)} • ${item.id.toUpperCase()}`}
+            {`${formatDate(item.getCreatedAt())} • ${item
+              .getId()
+              .toUpperCase()}`}
           </LabelText>
         </View>
-        <StatusBadge status={item.status} />
+        <StatusBadge status={item.getStatus()} />
       </View>
 
       <BodyText size="medium" color={amountColor} style={styles.amount}>
-        {formatAmount(item.amount, item.status)}
+        {formatAmount(item.getAmount(), item.getStatus())}
       </BodyText>
     </TouchableOpacity>
   );

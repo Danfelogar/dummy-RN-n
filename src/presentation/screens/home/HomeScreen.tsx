@@ -1,6 +1,5 @@
 import { JSX, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { Payin } from '../../../domain';
+import { StyleSheet, View } from 'react-native';
 import { colors, StandardWrapper, widthFullScreen } from '../../../shared';
 import {
   ActiveGoalsCard,
@@ -9,9 +8,10 @@ import {
   RecentActivity,
   SummaryRow,
 } from '../../components';
+import { PayIn, PayinDTO, PayInMapper } from '../../../domain';
 
 // Mock data — replace with real use case / repository calls
-const MOCK_TRANSACTIONS: Payin[] = [
+const MOCK_TRANSACTIONS: PayinDTO[] = [
   {
     id: 'txn_001a2b3c',
     idempotency_key: 'idem_seed_001',
@@ -56,6 +56,10 @@ const MOCK_TRANSACTIONS: Payin[] = [
   },
 ];
 
+const transactions: PayIn[] = MOCK_TRANSACTIONS.map(dto =>
+  PayInMapper.toDomain(dto),
+);
+
 export const HomeScreen = (): JSX.Element => {
   const [snackbarVisible] = useState(true);
   // Derived values — move to ViewModel/UseCase when wiring real data
@@ -78,7 +82,7 @@ export const HomeScreen = (): JSX.Element => {
         <ActiveGoalsCard savingsCount={activeSavingsCount} onPress={() => {}} />
 
         <RecentActivity
-          transactions={MOCK_TRANSACTIONS}
+          transactions={transactions}
           onSeeAll={() => {}}
           onTransactionPress={() => {}}
         />

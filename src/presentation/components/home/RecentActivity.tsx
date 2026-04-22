@@ -1,6 +1,5 @@
 import { JSX } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Payin } from '../../../domain';
 import {
   BodyText,
   heightFullScreen,
@@ -11,11 +10,12 @@ import {
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
 import { TransactionItem } from './TransactionItem';
+import { PayIn } from '../../../domain';
 
 interface RecentActivityProps {
-  transactions: Payin[];
+  transactions: PayIn[];
   onSeeAll?: () => void;
-  onTransactionPress?: (item: Payin) => void;
+  onTransactionPress?: (item: PayIn) => void;
 }
 
 export const RecentActivity = ({
@@ -47,7 +47,7 @@ export const RecentActivity = ({
             onPress={() => onTransactionPress?.(item)}
           />
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.getId()}
         style={[styles.list, { backgroundColor: colors.surface }]}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
