@@ -17,7 +17,7 @@
     {
       "id": "txn_002d4e5f",
       "idempotency_key": "idem_seed_002",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_jane_smith",
       "amount": 320.5,
       "currency": "USD",
       "payment_method": "BANK_TRANSFER",
@@ -31,7 +31,7 @@
     {
       "id": "txn_003g6h7i",
       "idempotency_key": "idem_seed_003",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_carlos_m",
       "amount": 75.99,
       "currency": "USD",
       "payment_method": "CASH",
@@ -45,7 +45,7 @@
     {
       "id": "txn_004j8k9l",
       "idempotency_key": "idem_seed_004",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_maria_g",
       "amount": 500.0,
       "currency": "USD",
       "payment_method": "CARD",
@@ -59,7 +59,7 @@
     {
       "id": "txn_005m1n2o",
       "idempotency_key": "idem_seed_005",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_luis_r",
       "amount": 89.0,
       "currency": "USD",
       "payment_method": "BANK_TRANSFER",
@@ -73,7 +73,7 @@
     {
       "id": "txn_006p3q4r",
       "idempotency_key": "idem_seed_006",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_ana_p",
       "amount": 1200.0,
       "currency": "USD",
       "payment_method": "CARD",
@@ -87,7 +87,7 @@
     {
       "id": "txn_007s5t6u",
       "idempotency_key": "idem_seed_007",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_pedro_v",
       "amount": 45.0,
       "currency": "USD",
       "payment_method": "CASH",
@@ -101,7 +101,7 @@
     {
       "id": "txn_008v7w8x",
       "idempotency_key": "idem_seed_008",
-      "customer_id": "cust_john_doe",
+      "customer_id": "cust_sofia_b",
       "amount": 275.25,
       "currency": "USD",
       "payment_method": "BANK_TRANSFER",

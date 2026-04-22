@@ -28,4 +28,30 @@ export const colors = {
   // Video Player (for detail screen)
   playerBackground: '#000000ff',
   playerControls: '#FFFFFF',
+  // Income / Spent cards
+  incomeBackground: '#DBEAFE',
+  incomeText: '#1D4ED8',
+  spentBackground: '#EDE9FE',
+  spentText: '#6D28D9',
+  // Active Goals card
+  goalsBackground: '#FED7AA',
+  goalsText: '#C2410C',
+  goalsArrow: '#EA580C',
+  // Snackbar
+  snackbarBackground: '#1F2937',
+  snackbarText: '#FFFFFF',
+  snackbarAction: '#818CF8',
+
+  // Transaction icon backgrounds
+  transactionIconBg: '#D1FAE5',
+  transactionIconBgNeutral: '#E5E7EB',
+  // Status badge
+  statusProcessedBg: '#D1FAE5',
+  statusProcessedText: '#065F46',
+  statusFailedBg: '#FEE2E2',
+  statusFailedText: '#991B1B',
+  statusValidatedBg: '#DBEAFE',
+  statusValidatedText: '#1E40AF',
+  statusCreatedBg: '#F3F4F6',
+  statusCreatedText: '#374151',
 };
