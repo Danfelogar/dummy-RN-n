@@ -1,0 +1,11 @@
+{
+  "exportall.config.folderListener": [
+    "/src/shared",
+    "/src",
+    "/src/presentation/screens/transactionHistory",
+    "/src/presentation/screens/payIn",
+    "/src/presentation/screens/home",
+    "/src/shared/utils",
+    "/src/presentation"
+  ]
+}
