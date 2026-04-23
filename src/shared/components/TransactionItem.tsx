@@ -4,7 +4,9 @@ import { PayIn } from '../../domain';
 import { useAppTheme, colors as staticColors } from '../theme';
 import { BodyText, LabelText } from './TextGeneric';
 import { formatAmount, formatDate, widthFullScreen } from '../utils';
-import { StatusBadge } from '../../presentation';
+import { RootStackMainParams, StatusBadge } from '../../presentation';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
 interface TransactionItemProps {
   item: PayIn;
@@ -18,11 +20,17 @@ const PAYMENT_METHOD_ICON: Record<string, string> = {
   CASH: '🍽️',
 };
 
+type NavigationProp = NativeStackScreenProps<
+  RootStackMainParams,
+  'DetailsHistory'
+>['navigation'];
+
 export const TransactionItem = ({
   item,
   customKey,
   onPress,
 }: TransactionItemProps): JSX.Element => {
+  const navigation = useNavigation<NavigationProp>();
   const { colors } = useAppTheme();
   const isPositive = item.getStatus() !== 'FAILED';
   const amountColor = isPositive ? staticColors.success : staticColors.error;
@@ -34,7 +42,9 @@ export const TransactionItem = ({
 
   return (
     <TouchableOpacity
-      onPress={() => onPress?.(item)}
+      onPress={() => {
+        navigation.navigate('DetailsHistory', { id: item.getId() });
+      }}
       activeOpacity={0.75}
       style={[
         styles.row,

@@ -1,12 +1,9 @@
-import React from 'react';
 import {
   View,
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
 import { Text, Button, Divider } from 'react-native-paper';
 import { CircleCheck } from 'lucide-react-native';
 import { PAY_IN_STRINGS } from '../../screens';
@@ -14,7 +11,6 @@ import {
   colors,
   formatDate,
   heightFullScreen,
-  isIOS,
   Modal,
   widthFullScreen,
 } from '../../../shared';
