@@ -1,16 +1,20 @@
 import { AxiosInstance } from 'axios';
 import { InitDeviceCredentialUseCase } from '../../../application';
-import { DeviceCredentialRepository } from '../../storage/mmkv/repositories/deviceCredentialRepository';
 import { createClient } from '../createClient';
 import { applyAuthInterceptor } from '../interceptors/auth.interceptor';
 import { CryptoService } from '../services';
-import { URL_BASE_FOR_FRONTEND } from '@env';
+import { URL_BASE_FOR_FRONTEND, URL_BASE_FOR_FRONTEND_ANDROID } from '@env';
+import { DeviceCredentialRepository } from '../../storage';
+import { isIOS } from '../../../shared';
 
 export function createTumiPayClient(onAuthError?: () => void): AxiosInstance {
-  const instance = createClient(URL_BASE_FOR_FRONTEND, {
-    serviceName: 'TumiPay',
-    onAuthError,
-  });
+  const instance = createClient(
+    isIOS() ? URL_BASE_FOR_FRONTEND : URL_BASE_FOR_FRONTEND_ANDROID,
+    {
+      serviceName: 'TumiPay',
+      onAuthError,
+    },
+  );
   //infrastructure dependencies
   const credentialRepo = new DeviceCredentialRepository();
   const cryptoService = new CryptoService();

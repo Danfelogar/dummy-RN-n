@@ -19,7 +19,7 @@ const { validateCreatePayIn } = require('./validators');
 
 const DB_PATH = path.join(__dirname, 'db.json');
 
-// ── Bootstrap json-server ────────────────────────────────────────────────────
+// Bootstrap json-server
 const server = jsonServer.create();
 const router = jsonServer.router(DB_PATH);
 const middlewares = jsonServer.defaults({ noCors: false });
@@ -27,7 +27,7 @@ const middlewares = jsonServer.defaults({ noCors: false });
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-// ── CORS headers (React Native metro bundler runs on a different port) ───────
+// CORS headers (React Native metro bundler runs on a different port)
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,OPTIONS');
@@ -36,7 +36,7 @@ server.use((req, res, next) => {
   next();
 });
 
-// ── POST /pay-ins ─────────────────────────────────────────────────────────────
+// POST /pay-ins
 server.post('/pay-ins', (req, res) => {
   const db = router.db; // lowdb instance
 
@@ -99,7 +99,7 @@ server.post('/pay-ins', (req, res) => {
   });
 });
 
-// ── GET /pay-ins ──────────────────────────────────────────────────────────────
+// GET /pay-ins
 // Supports query params: ?status=PROCESSED  ?customer_id=cust_xxx
 server.get('/pay-ins', (req, res) => {
   const db = router.db;
@@ -122,7 +122,7 @@ server.get('/pay-ins', (req, res) => {
   });
 });
 
-// ── GET /pay-ins/:id ──────────────────────────────────────────────────────────
+// GET /pay-ins/:id
 server.get('/pay-ins/:id', (req, res) => {
   const db = router.db;
   const record = db.get('payins').find({ id: req.params.id }).value();
@@ -137,10 +137,10 @@ server.get('/pay-ins/:id', (req, res) => {
   return res.status(200).json({ data: record });
 });
 
-// ── Mount json-server router (handles everything else, e.g. /idempotency_keys)
+// Mount json-server router (handles everything else, e.g. /idempotency_keys)
 server.use(router);
 
-// ── Start ─────────────────────────────────────────────────────────────────────
+// Start
 server.listen(process.env.PORT_FOR_BACKEND || 3001, () => {
   console.log(
     `\n🚀  TumiPay dummy backend running at http://localhost:${

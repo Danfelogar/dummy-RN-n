@@ -2,6 +2,10 @@ export const PAY_IN_STRINGS = {
   // Screen title
   SCREEN_TITLE: 'Create PayIn',
 
+  //Info banner offline
+  INFO_BANNER_TITLE_OFFLINE: "You're offline",
+  INFO_BANNER_SUBTITLE_OFFLINE:
+    'Your payment will be queued and sent automatically when your connection is restored.',
   // Info banner
   INFO_BANNER_TITLE: 'Precision Transaction',
   INFO_BANNER_SUBTITLE:
@@ -28,6 +32,7 @@ export const PAY_IN_STRINGS = {
   TOTAL_CHARGE_LABEL: 'Total Charge',
 
   // Button
+  CREATE_PAY_IN_BUTTON_OFFLINE: 'Queue Payment',
   CREATE_PAY_IN_BUTTON: 'Create PayIn',
 
   // Validation errors

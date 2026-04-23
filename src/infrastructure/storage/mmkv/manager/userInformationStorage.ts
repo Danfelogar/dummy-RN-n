@@ -23,7 +23,12 @@ export const userInformationStorage = create<UserInformationState>()(
       ...INIT_USER_INFORMATION_STATE,
 
       setAvailableBalance: (balance: number) =>
-        set(state => ({ ...state, availableBalance: balance })),
+        set(state => ({
+          userDetails: {
+            ...state.userDetails,
+            available_balance: balance,
+          },
+        })),
 
       getAllUserInformation: () => {
         const { userDetails } = get();

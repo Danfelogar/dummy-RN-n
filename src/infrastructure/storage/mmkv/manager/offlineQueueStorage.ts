@@ -1,12 +1,15 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { mmkvAdapter } from '../mmkvStorage';
-import { OfflineQueueState, OfflineQueueWithoutActions } from './interfaces';
-import { PayIn, PayInMapper } from '../../../../domain';
+import {
+  OfflineQueueState,
+  OfflineQueueWithoutActions,
+  QueuedPayInItem,
+} from './interfaces';
 
 const INITIAL_STATE: OfflineQueueWithoutActions = {
   queue: null,
-  isLoading: false,
+  isProcessing: false,
 };
 
 export const useOfflineQueueStore = create<OfflineQueueState>()(
@@ -14,36 +17,36 @@ export const useOfflineQueueStore = create<OfflineQueueState>()(
     (set, get) => ({
       ...INITIAL_STATE,
 
-      addToQueue: (payIn: PayIn) => {
-        const { queue, isLoading } = get();
-        if (isLoading || queue !== null) {
+      enqueue: (item: QueuedPayInItem) => {
+        const { queue, isProcessing } = get();
+        if (isProcessing) {
           console.warn(
-            '⚠️ The queue already contains items or is currently processing them',
+            '⚠️ OfflineQueue: cannot enqueue while processing is in progress',
           );
           return;
         }
-
-        set({ isLoading: true });
-
-        try {
-          const payInDTO = PayInMapper.toDTO(payIn);
-          console.log('📥 PayIn added to the offline queue:', payInDTO.id);
-
-          set({ queue: payInDTO });
-        } catch (error) {
-          console.error('❌ Error adding PayIn to the queue:', error);
-        } finally {
-          set({ isLoading: false });
+        if (queue !== null) {
+          console.warn(
+            'OfflineQueue: a pending item already exists — ignoring new enqueue',
+          );
+          return;
         }
+        set({ queue: item });
+        console.log(`PayIn enqueued (idempotencyKey: ${item.idempotencyKey})`);
       },
 
-      hasPending: () => {
-        const { queue } = get();
-        return queue !== null;
+      dequeue: () => {
+        set({ queue: null, isProcessing: false });
+        console.log('OfflineQueue: item dequeued after successful retry');
       },
+
+      hasPending: () => get().queue !== null,
+
+      setProcessing: (value: boolean) => set({ isProcessing: value }),
 
       cleanAllQueueState: () => {
         set({ ...INITIAL_STATE });
+        console.log('OfflineQueue: state reset');
       },
     }),
     {

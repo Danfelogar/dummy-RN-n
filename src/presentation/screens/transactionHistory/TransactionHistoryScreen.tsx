@@ -1,34 +1,40 @@
 import { useCallback } from 'react';
-import { FlatList, StyleSheet, View, ListRenderItemInfo } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ListRenderItemInfo,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 import { Text, Surface } from 'react-native-paper';
 import { TRANSACTION_HISTORY_STRINGS } from './transactionhistory.strings';
 import { useTransactionHistory } from '../../hooks';
 import { PayIn } from '../../../domain';
 import {
   colors,
+  EmptyState,
+  ErrorState,
   heightFullScreen,
   InputGeneric,
+  OfflineBanner,
   StandardWrapper,
   TransactionItem,
   widthFullScreen,
 } from '../../../shared';
 
-const EmptyState = () => (
-  <View style={styles.emptyContainer}>
-    <Text variant="titleMedium" style={styles.emptyTitle}>
-      {TRANSACTION_HISTORY_STRINGS.EMPTY_TITLE}
-    </Text>
-    <Text variant="bodyMedium" style={styles.emptySubtitle}>
-      {TRANSACTION_HISTORY_STRINGS.EMPTY_SUBTITLE}
-    </Text>
-  </View>
-);
-
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export const TransactionHistoryScreen = () => {
-  const { form, filteredTransactions, searchValue, clearSearch } =
-    useTransactionHistory();
+  const {
+    form,
+    filteredTransactions,
+    searchValue,
+    clearSearch,
+    loadState,
+    fromCache,
+    refetch,
+  } = useTransactionHistory();
 
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<PayIn>) => (
@@ -36,7 +42,6 @@ export const TransactionHistoryScreen = () => {
         item={item}
         customKey={index}
         onPress={txn => {
-          // Navigate to TransactionDetailsScreen — wire up navigation here
           console.log('Selected transaction:', txn.getId());
         }}
       />
@@ -46,8 +51,15 @@ export const TransactionHistoryScreen = () => {
 
   const keyExtractor = useCallback((item: PayIn) => item.getId(), []);
 
+  const isLoading = loadState === 'loading';
+  const isError = loadState === 'error';
+
   return (
     <StandardWrapper>
+      {/* Offline banner */}
+      {fromCache && <OfflineBanner onRefresh={refetch} />}
+
+      {/* Search bar */}
       <View style={styles.searchRow}>
         <View style={styles.searchInputWrapper}>
           <InputGeneric
@@ -65,22 +77,51 @@ export const TransactionHistoryScreen = () => {
         </View>
       </View>
 
-      <Surface style={styles.listCard} elevation={1}>
-        <FlatList<PayIn>
-          data={filteredTransactions}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          ItemSeparatorComponent={ItemSeparator}
-          ListEmptyComponent={EmptyState}
-          contentContainerStyle={[
-            styles.listContent,
-            filteredTransactions.length === 0 && styles.emptyListContent,
-          ]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-        />
-      </Surface>
+      {/* Loading spinner (first load only) */}
+      {isLoading && filteredTransactions.length === 0 && (
+        <View style={styles.centeredLoader}>
+          <ActivityIndicator size="large" color={colors.primary} />
+          <Text variant="bodyMedium" style={styles.loadingText}>
+            {TRANSACTION_HISTORY_STRINGS.LOAD_DATA}
+          </Text>
+        </View>
+      )}
+
+      {/* Error state */}
+      {isError && filteredTransactions.length === 0 && (
+        <ErrorState onRetry={refetch} />
+      )}
+
+      {/* List */}
+      {!isLoading || filteredTransactions.length > 0 ? (
+        <Surface style={styles.listCard} elevation={1}>
+          <FlatList<PayIn>
+            data={filteredTransactions}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            ItemSeparatorComponent={ItemSeparator}
+            ListEmptyComponent={isLoading ? null : <EmptyState />}
+            contentContainerStyle={[
+              styles.listContent,
+              filteredTransactions.length === 0 && styles.emptyListContent,
+            ]}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            refreshControl={
+              <RefreshControl
+                refreshing={isLoading && filteredTransactions.length > 0}
+                onRefresh={refetch}
+                colors={[colors.primary]}
+                tintColor={colors.primary}
+              />
+            }
+          />
+        </Surface>
+      ) : null}
+      <View
+        style={{ width: widthFullScreen, height: heightFullScreen * 0.05 }}
+      />
     </StandardWrapper>
   );
 };
@@ -101,6 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: colors.surface,
     overflow: 'hidden',
+    flex: 1,
   },
   listContent: {
     paddingHorizontal: widthFullScreen * 0.04,
@@ -115,17 +157,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.outlineVariant,
     marginLeft: widthFullScreen * 0.155,
   },
-  emptyContainer: {
+
+  centeredLoader: {
+    flex: 1,
     alignItems: 'center',
-    paddingVertical: heightFullScreen * 0.08,
-    gap: widthFullScreen * 0.02,
+    justifyContent: 'center',
+    gap: 12,
+    paddingVertical: heightFullScreen * 0.1,
   },
-  emptyTitle: {
-    color: colors.onSurface,
-    fontWeight: '600',
-  },
-  emptySubtitle: {
+  loadingText: {
     color: colors.onSurfaceVariant,
-    textAlign: 'center',
   },
 });

@@ -1,4 +1,5 @@
 import { DeviceCredential, KeyPairVO } from '../../../domain';
+import { generateUuid } from '../../../shared';
 import { IDeviceCredentialRepository } from '../../repositories';
 import { ICryptoService } from '../../services';
 
@@ -38,7 +39,7 @@ export class InitDeviceCredentialUseCase {
     };
 
     const credential: DeviceCredential = {
-      id: await this.cryptoService.generateUuid(),
+      id: await generateUuid(),
       keyPair,
       isInitialized: true,
     };

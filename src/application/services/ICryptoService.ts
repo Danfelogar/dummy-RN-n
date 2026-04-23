@@ -11,5 +11,4 @@ export interface ICryptoService {
     encryptedPrivateKey: string,
   ): Promise<string>;
   encryptPayload(data: unknown): Promise<string>;
-  generateUuid(): Promise<string>;
 }

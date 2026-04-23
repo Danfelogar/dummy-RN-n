@@ -15,13 +15,11 @@ import { PayIn } from '../../../domain';
 interface RecentActivityProps {
   transactions: PayIn[];
   onSeeAll?: () => void;
-  onTransactionPress?: (item: PayIn) => void;
 }
 
 export const RecentActivity = ({
   transactions,
   onSeeAll,
-  onTransactionPress,
 }: RecentActivityProps): JSX.Element => {
   const { colors } = useAppTheme();
 
@@ -41,11 +39,7 @@ export const RecentActivity = ({
       <FlatList
         data={transactions}
         renderItem={({ item, index }) => (
-          <TransactionItem
-            item={item}
-            customKey={index}
-            onPress={() => onTransactionPress?.(item)}
-          />
+          <TransactionItem item={item} customKey={index} />
         )}
         keyExtractor={item => item.getId()}
         style={[styles.list, { backgroundColor: colors.surface }]}

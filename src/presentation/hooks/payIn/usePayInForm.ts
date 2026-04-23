@@ -1,10 +1,14 @@
+import { useState, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useState, useCallback, useMemo } from 'react';
-import { PaymentMethod } from '../../../domain/entities/payIn';
 import { PAY_IN_STRINGS } from '../../screens';
-import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
+import { generateUuid, showToast, useInternetStatus } from '../../../shared';
+import {
+  container,
+  useOfflineQueueStore,
+  userInformationStorage,
+} from '../../../infrastructure';
 import { FEE_RATE_FRONTEND, MIN_FEE_FRONTEND } from '@env';
 
 export const feeCalculation = (amount: number): number => {
@@ -12,7 +16,7 @@ export const feeCalculation = (amount: number): number => {
   const MIN_FEE = MIN_FEE_FRONTEND ?? 0.45;
   return Math.max(amount * FEE_RATE, MIN_FEE);
 };
-
+// zod-schema
 const buildPayInSchema = (availableBalance: number) =>
   z.object({
     amount: z
@@ -54,8 +58,12 @@ export type PayInModalState =
     };
 
 export const usePayInForm = () => {
-  const { userDetails } = userInformationStorage();
-  const availableBalance = userDetails.available_balance;
+  const availableBalance = userInformationStorage(
+    state => state.userDetails.available_balance,
+  );
+  const { isConnected, isInternetReachable } = useInternetStatus();
+  const { enqueue, hasPending } = useOfflineQueueStore();
+  const isOnline = isConnected && isInternetReachable;
 
   const schema = useMemo(
     () => buildPayInSchema(availableBalance),
@@ -81,41 +89,94 @@ export const usePayInForm = () => {
   const feeEstimate = feeCalculation(parsedAmount);
   const totalCharge = parsedAmount + feeEstimate;
 
-  const onSubmit = useCallback(async (values: PayInFormValues) => {
-    try {
-      setModalState({ visible: true, status: 'processing' });
+  const onSubmit = useCallback(
+    async (values: PayInFormValues) => {
+      const amount = Number(values.amount);
 
-      // Simulate async call — replace with real CreatePayInUseCase.execute()
-      await new Promise<void>(resolve => setTimeout(resolve, 2000));
+      //Offline path
+      if (!isOnline) {
+        if (hasPending()) {
+          showToast({
+            type: 'warning',
+            title: 'Payment already queued',
+            body: "A pending payment will be sent when you're back online.",
+          });
+          return;
+        }
 
-      const mockTransactionId = `TXN-${
-        Math.floor(Math.random() * 90000000) + 10000000
-      }`;
+        enqueue({
+          idempotencyKey: await generateUuid(),
+          dto: {
+            customer_id: values.customer_id,
+            amount,
+            payment_method: values.payment_method,
+            description: values.description,
+          },
+          enqueuedAt: Date.now(),
+        });
 
-      setModalState({
-        visible: true,
-        status: 'success',
-        transactionId: mockTransactionId,
-        amount: Number(values.amount),
-        date: new Date(),
-      });
-    } catch {
-      setModalState({ visible: false });
-    }
-  }, []);
+        showToast({
+          type: 'info',
+          title: 'Payment queued',
+          body: "No internet connection — your payment will be sent automatically when you're back online.",
+        });
+
+        form.reset();
+        return;
+      }
+
+      //Online path
+      try {
+        setModalState({ visible: true, status: 'processing' });
+
+        const result = await container.createPayIn.execute({
+          customer_id: values.customer_id,
+          amount,
+          payment_method: values.payment_method,
+          description: values.description,
+        });
+
+        setModalState({
+          visible: true,
+          status: 'success',
+          transactionId: result.payIn.getId(),
+          amount,
+          date: result.payIn.getCreatedAt(),
+        });
+
+        form.reset();
+      } catch (err: unknown) {
+        setModalState({ visible: false });
+
+        const message =
+          err instanceof Error
+            ? err.message
+            : 'An unexpected error occurred. Please try again.';
+
+        showToast({
+          type: 'error',
+          title: 'Payment failed',
+          body: message,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isOnline, hasPending, enqueue, form],
+  );
 
   const dismissModal = useCallback(() => {
     setModalState({ visible: false });
   }, []);
 
   return {
-    //state
+    // state
     form,
     feeEstimate,
     totalCharge,
     availableBalance,
     modalState,
-    //actions
+    isOnline,
+    // actions
     onSubmit: form.handleSubmit(onSubmit),
     dismissModal,
   };

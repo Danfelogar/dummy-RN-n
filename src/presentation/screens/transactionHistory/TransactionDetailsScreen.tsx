@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ArrowLeft } from 'lucide-react-native';

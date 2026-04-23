@@ -11,7 +11,7 @@
 
 import QuickCrypto from 'react-native-quick-crypto';
 
-// ─── Pure hex helpers (no Node Buffer needed) ────────────────────────────────
+//Pure hex helpers (no Node Buffer needed)
 
 /** Uint8Array → lowercase hex string. e.g. [0xde,0xad] → "dead" */
 function bytesToHex(bytes: ArrayLike<number>): string {
@@ -32,7 +32,7 @@ function hexToBytes(hex: string): Uint8Array {
   return bytes;
 }
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+//Types
 export interface AesGcmEncryptResult {
   ciphertext: string; // hex-encoded encrypted bytes
   iv: string; // hex-encoded 12-byte IV (nonce)
@@ -47,13 +47,13 @@ export interface AesGcmDecryptResult {
   verified: boolean;
 }
 
-// ─── Key Generation ──────────────────────────────────────────────────────────
+//Key Generation
 
 export function generateKey(): string {
   const keyBytes = QuickCrypto.randomBytes(32);
   return bytesToHex(keyBytes as unknown as Uint8Array);
 }
-// ─── Encrypt ─────────────────────────────────────────────────────────────────
+//Encrypt
 
 /**
  * Encrypts plaintext using AES-256-GCM.
@@ -90,7 +90,7 @@ export function encryptAesGcm(
   };
 }
 
-// ─── Decrypt ─────────────────────────────────────────────────────────────────
+//Decrypt
 
 /**
  * Decrypts an AES-256-GCM ciphertext and verifies the authentication tag.
@@ -123,7 +123,7 @@ export function decryptAesGcm(
   };
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+//Helpers
 
 /** Truncates a hex string for display: first N + "…" + last N chars */
 export function truncateHex(hex: string, halfLen = 12): string {

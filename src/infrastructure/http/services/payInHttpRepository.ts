@@ -14,7 +14,7 @@ export class PayInHttpRepository implements IPayInRepository {
   constructor(private readonly client: AxiosInstance) {
     this.cryptoService = new CryptoService();
   }
-  // ── POST /pay-ins ───────────────────────────────────────────────────────────
+  // POST /pay-ins
   async create(dto: CreatePayInDTO, idempotencyKey: string): Promise<PayIn> {
     // Encrypt the sensitive payload before sending
     const encryptedPayload = await this.cryptoService.encryptPayload({
@@ -39,7 +39,7 @@ export class PayInHttpRepository implements IPayInRepository {
 
     return PayInMapper.toDomain(response.data.data);
   }
-  // ── GET /pay-ins ────────────────────────────────────────────────────────────
+  // GET /pay-ins
   async findAll(params: ListPayInsParams = {}): Promise<PayIn[]> {
     const response: AxiosResponse<BackendEnvelope<PayinDTO[]>> =
       await this.client.get('/pay-ins', {
@@ -49,7 +49,7 @@ export class PayInHttpRepository implements IPayInRepository {
 
     return response.data.data.map(PayInMapper.toDomain);
   }
-  // ── GET /pay-ins/:id ────────────────────────────────────────────────────────
+  // GET /pay-ins/:id
   async findById(id: string): Promise<PayIn | null> {
     try {
       const response: AxiosResponse<BackendEnvelope<PayinDTO>> =

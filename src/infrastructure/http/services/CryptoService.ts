@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import QuickCrypto from 'react-native-quick-crypto';
 import {
   generateRsaKeyPair,
   computeFingerprint,
@@ -9,7 +9,7 @@ import {
   decryptAesGcm,
   AesGcmEncryptResult,
 } from '../../../shared/crypto/aes-gcm';
-import { ICryptoService } from '../../../application/services/ICryptoService';
+import { ICryptoService } from '../../../application';
 
 /**
  * CryptoService
@@ -22,7 +22,7 @@ import { ICryptoService } from '../../../application/services/ICryptoService';
  *   load from MMKV → decryptPrivateKey (PEM) → rsaDecryptPayload
  */
 export class CryptoService implements ICryptoService {
-  // ── Key generation ──────────────────────────────────────────────────────────
+  // Key generation
 
   async generateRsaKeyPair(): Promise<{
     publicKeyPem: string;
@@ -36,7 +36,7 @@ export class CryptoService implements ICryptoService {
     return computeFingerprint(publicKeyPem);
   }
 
-  // ── At-rest protection of the private key (AES-256-GCM) ────────────────────
+  // At-rest protection of the private key (AES-256-GCM)
 
   /**
    * Serialises the AesGcmEncryptResult as JSON so it can be stored
@@ -56,7 +56,7 @@ export class CryptoService implements ICryptoService {
     return plaintext;
   }
 
-  // ── RSA payload decryption ──────────────────────────────────────────────────
+  // RSA payload decryption
 
   /**
    * Full round-trip:
@@ -92,11 +92,5 @@ export class CryptoService implements ICryptoService {
     const plaintext = JSON.stringify(data);
     const result: AesGcmEncryptResult = encryptAesGcm(plaintext);
     return JSON.stringify(result);
-  }
-
-  // ── Utilities ───────────────────────────────────────────────────────────────
-
-  async generateUuid(): Promise<string> {
-    return uuidv4();
   }
 }

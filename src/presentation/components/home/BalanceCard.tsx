@@ -22,7 +22,9 @@ export const BalanceCard = ({
   onSend,
 }: BalanceCardProps): JSX.Element => {
   const { colors } = useAppTheme();
-  const { userDetails } = userInformationStorage();
+  const availableBalance = userInformationStorage(
+    state => state.userDetails.available_balance,
+  );
   return (
     <View style={[styles.card, { backgroundColor: colors.surface }]}>
       <View style={styles.header}>
@@ -46,7 +48,7 @@ export const BalanceCard = ({
         style={styles.balanceAmount}
         color={colors.onSurface}
       >
-        {formatAmount(userDetails.available_balance, '+')}
+        {formatAmount(availableBalance, '+').replace(/^\+/, '')}
       </TitleText>
 
       <View style={styles.actions}>

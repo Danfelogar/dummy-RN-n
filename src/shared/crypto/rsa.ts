@@ -12,7 +12,7 @@
  * Key size:   2048 bits (safe default; 4096 available if needed)
  */
 import QuickCrypto from 'react-native-quick-crypto';
-// ─── Types ────────────────────────────────────────────────────────────────────
+import { Buffer } from 'buffer';
 
 export interface RsaKeyPair {
   publicKeyPem: string; // PEM — share with backend
@@ -25,9 +25,6 @@ export interface RsaEncryptResult {
   algorithm: 'RSA-OAEP-SHA256';
   encryptedAt: string;
 }
-
-// ─── Key Generation ───────────────────────────────────────────────────────────
-
 /**
  * Generates a 2048-bit RSA key pair.
  * Returns both keys as PEM strings.
@@ -46,8 +43,7 @@ export function generateRsaKeyPair(): RsaKeyPair {
   };
 }
 
-// ─── Fingerprint ──────────────────────────────────────────────────────────────
-
+//Fingerprint
 /**
  * Computes SHA-256 fingerprint of a PEM public key.
  * Strips the PEM header/footer, decodes base64, hashes the DER bytes.
@@ -67,8 +63,7 @@ export function computeFingerprint(publicKeyPem: string): string {
   return (hash.digest('hex') as unknown as Buffer).toString('hex');
 }
 
-// ─── Encrypt (backend → device) ───────────────────────────────────────────────
-
+//Encrypt (backend → device)
 /**
  * Encrypts plaintext with a RSA public key (OAEP + SHA-256).
  * The backend uses this to send encrypted payloads to the device.
@@ -96,7 +91,7 @@ export function rsaEncrypt(
   };
 }
 
-// ─── Decrypt (device only) ────────────────────────────────────────────────────
+//Decrypt (device only)
 
 /**
  * Decrypts an RSA-OAEP ciphertext with the device's private key.
@@ -121,7 +116,7 @@ export function rsaDecrypt(
   return (plaintextBuffer as unknown as Buffer).toString('utf8');
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+//Helpers
 export function summarizePem(pem: string, fingerprint: string): string {
   const short = fingerprint.slice(0, 8) + '…' + fingerprint.slice(-8);
   const type = pem.includes('PUBLIC') ? 'RSA-PUB' : 'RSA-PRIV';

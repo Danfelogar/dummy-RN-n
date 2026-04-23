@@ -13,7 +13,7 @@ import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
 
 export const SummaryRow = (): JSX.Element => {
   const { colors } = useAppTheme();
-  const { userDetails } = userInformationStorage();
+  const userDetails = userInformationStorage(state => state.userDetails);
   return (
     <View style={styles.row}>
       {/* Month Income */}

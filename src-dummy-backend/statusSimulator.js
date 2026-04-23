@@ -21,7 +21,7 @@ const FAILURE_RATE = process.env.FAILURE_RATE_BACKEND || 0.2;
  * @param {string} txnId   — ID of the freshly created PayIn
  */
 function simulatePipeline(db, txnId) {
-  // ── Step 1: CREATED → VALIDATED (after ~5 s) ─────────────────────────────
+  // Step 1: CREATED → VALIDATED (after ~5 s)
   setTimeout(() => {
     const record = db.get('payins').find({ id: txnId }).value();
     if (!record || isTerminal(record.status)) return;
@@ -33,7 +33,7 @@ function simulatePipeline(db, txnId) {
 
     console.log(`[simulator] ${txnId} → VALIDATED`);
 
-    // ── Step 2: VALIDATED → PROCESSED | FAILED (after ~7 s more) ─────────
+    // Step 2: VALIDATED → PROCESSED | FAILED (after ~7 s more)
     setTimeout(() => {
       const current = db.get('payins').find({ id: txnId }).value();
       if (!current || isTerminal(current.status)) return;

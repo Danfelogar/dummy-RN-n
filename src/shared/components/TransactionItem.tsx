@@ -44,6 +44,7 @@ export const TransactionItem = ({
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('DetailsHistory', { id: item.getId() });
+        onPress?.(item);
       }}
       activeOpacity={0.75}
       style={[
