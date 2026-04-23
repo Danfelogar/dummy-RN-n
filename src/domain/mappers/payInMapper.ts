@@ -76,4 +76,21 @@ export class PayInMapper {
       cached_at: Date.now(),
     };
   }
+  // TransactionRecord → PayInDTO
+  static recordToDTO(record: TransactionRecord): PayinDTO {
+    return {
+      id: record.id,
+      idempotency_key: record.idempotency_key,
+      customer_id: record.customer_id,
+      amount: record.amount,
+      currency: record.currency,
+      payment_method: record.payment_method,
+      status: record.status,
+      description: record.description,
+      failure_reason: record.failure_reason,
+      encrypted_payload: record.encrypted_payload,
+      created_at: record.created_at,
+      updated_at: record.updated_at,
+    };
+  }
 }

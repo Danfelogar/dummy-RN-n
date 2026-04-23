@@ -1,6 +1,13 @@
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import { Surface, Text } from 'react-native-paper';
+import { ArrowLeft, WifiOff } from 'lucide-react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ArrowLeft } from 'lucide-react-native';
 import { RootStackMainParams } from '../../navigation';
 import { useTransactionDetails } from '../../hooks';
 import {
@@ -18,7 +25,8 @@ type Props = NativeStackScreenProps<RootStackMainParams, 'DetailsHistory'>;
 
 export const TransactionDetailsScreen = ({ navigation, route }: Props) => {
   const { id } = route.params;
-  const { transaction, isFound, dto } = useTransactionDetails(id);
+  const { transaction, isFound, dto, isLoading, fromCache } =
+    useTransactionDetails(id);
 
   return (
     <StandardWrapper>
@@ -41,8 +49,14 @@ export const TransactionDetailsScreen = ({ navigation, route }: Props) => {
         <View style={styles.backButtonPlaceholder} />
       </View>
 
-      {!isFound || !transaction || !dto ? (
-        // Not-found state
+      {isLoading ? (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primary} />
+          <BodyText size="medium" color={colors.onSurfaceVariant}>
+            {TRANSACTION_DETAILS_STRINGS.LOADING}
+          </BodyText>
+        </View>
+      ) : !isFound || !transaction || !dto ? (
         <View style={styles.notFound}>
           <BodyText size="large" color={colors.onSurfaceVariant}>
             {TRANSACTION_DETAILS_STRINGS.NOT_FOUND_TITLE}
@@ -57,6 +71,20 @@ export const TransactionDetailsScreen = ({ navigation, route }: Props) => {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
+          {fromCache && (
+            <Surface style={styles.cacheBanner} elevation={0}>
+              <View style={styles.cacheBannerInner}>
+                <WifiOff size={18} color={colors.warning} />
+                <Text
+                  variant="bodySmall"
+                  style={{ color: colors.warning, flex: 1 }}
+                >
+                  {TRANSACTION_DETAILS_STRINGS.CACHE_BANNER}
+                </Text>
+              </View>
+            </Surface>
+          )}
+
           <TransactionInfoCard transaction={transaction} dto={dto} />
 
           {transaction.getStatus() === 'PROCESSED' && (
@@ -105,5 +133,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: widthFullScreen * 0.02,
     paddingHorizontal: widthFullScreen * 0.08,
+  },
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: widthFullScreen * 0.03,
+  },
+  cacheBanner: {
+    borderRadius: 12,
+    backgroundColor: colors.warningLight ?? '#FFF3CD',
+    padding: 12,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.warning,
+  },
+  cacheBannerInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 });

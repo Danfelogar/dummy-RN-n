@@ -33,7 +33,7 @@ const createPayIn = new CreatePayInUseCase(
   userInfoRepo,
 );
 
-const getPayIn = new GetPayInUseCase(payInRepo);
+const getPayIn = new GetPayInUseCase(payInRepo, cacheRepo);
 
 const listPayIns = new ListPayInsUseCase(payInRepo);
 

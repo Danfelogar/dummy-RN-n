@@ -41,4 +41,8 @@ export const TRANSACTION_DETAILS_STRINGS = {
   // Not found
   NOT_FOUND_TITLE: 'Transaction not found',
   NOT_FOUND_SUBTITLE: 'The requested transaction could not be loaded.',
+
+  LOADING: 'Loading transaction details…',
+  CACHE_BANNER:
+    'You are offline — this data was last synced from your local cache.',
 } as const;
