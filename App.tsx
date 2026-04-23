@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 
-import { NavigationMain, PortalProvider, theme } from './src';
+import { AppToast, NavigationMain, PortalProvider, theme } from './src';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
         <PortalProvider>
           <NavigationMain />
         </PortalProvider>
+        <AppToast />
       </PaperProvider>
     </NavigationContainer>
   );

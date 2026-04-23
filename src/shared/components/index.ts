@@ -4,3 +4,4 @@ export * from './TextGeneric';
 export * from './TransactionItem';
 export * from './interfaces';
 export * from './modal';
+export * from './toast';
