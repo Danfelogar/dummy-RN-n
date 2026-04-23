@@ -11,7 +11,7 @@ export function createTumiPayClient(onAuthError?: () => void): AxiosInstance {
     serviceName: 'TumiPay',
     onAuthError,
   });
-  // Wire infrastructure dependencies
+  //infrastructure dependencies
   const credentialRepo = new DeviceCredentialRepository();
   const cryptoService = new CryptoService();
   const initCredentialUseCase = new InitDeviceCredentialUseCase(
