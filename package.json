@@ -14,6 +14,7 @@
     "install-secure": "pnpm install --ignore-scripts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@react-native-community/netinfo": "^12.0.1",
     "@react-native-vector-icons/material-design-icons": "^13.1.0",
     "@react-native/codegen": "^0.85.2",
@@ -39,10 +40,12 @@
     "react-native-screens": "^4.24.0",
     "react-native-svg": "^15.15.4",
     "uuid": "^14.0.0",
+    "zod": "^4.3.6",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/plugin-transform-export-namespace-from": "^7.27.1",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.25.0",
     "@react-native-community/cli": "20.1.0",

@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import React from 'react';
+import { StandardWrapper } from '../../../shared';
 
 export const TransactionDetailsScreen = () => {
   return (
-    <View>
-      <Text>TransactionDetailsScreen</Text>
-    </View>
+    <StandardWrapper>
+      <View style={{ flex: 1 }}>
+        <Text>TransactionDetailsScreen</Text>
+      </View>
+    </StandardWrapper>
   );
 };
 

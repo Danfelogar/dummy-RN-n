@@ -1,13 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 
-import { NavigationMain, theme } from './src';
+import { NavigationMain, PortalProvider, theme } from './src';
 
 function App() {
   return (
     <NavigationContainer>
       <PaperProvider theme={theme}>
-        <NavigationMain />
+        <PortalProvider>
+          <NavigationMain />
+        </PortalProvider>
       </PaperProvider>
     </NavigationContainer>
   );

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RootStackMainParams } from './navigations';
 import { NavigationTab } from './NavigationTab';
-import { TransactionDetailsScreen } from '../../presentation';
+import { TransactionDetailsScreen } from '../screens';
 
 const Stack = createNativeStackNavigator<RootStackMainParams>();
 

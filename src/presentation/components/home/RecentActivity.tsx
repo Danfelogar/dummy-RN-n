@@ -5,11 +5,11 @@ import {
   heightFullScreen,
   isIOS,
   LabelText,
+  TransactionItem,
   useAppTheme,
   widthFullScreen,
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
-import { TransactionItem } from './TransactionItem';
 import { PayIn } from '../../../domain';
 
 interface RecentActivityProps {

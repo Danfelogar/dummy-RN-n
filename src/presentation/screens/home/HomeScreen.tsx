@@ -1,5 +1,6 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { colors, StandardWrapper, widthFullScreen } from '../../../shared';
 import {
   ActiveGoalsCard,
@@ -9,8 +10,8 @@ import {
   SummaryRow,
 } from '../../components';
 import { PayIn, PayinDTO, PayInMapper } from '../../../domain';
+import { BottomTabsParams } from '../../navigation';
 
-// Mock data — replace with real use case / repository calls
 const MOCK_TRANSACTIONS: PayinDTO[] = [
   {
     id: 'txn_001a2b3c',
@@ -60,11 +61,18 @@ const transactions: PayIn[] = MOCK_TRANSACTIONS.map(dto =>
   PayInMapper.toDomain(dto),
 );
 
-export const HomeScreen = (): JSX.Element => {
+type Props = BottomTabScreenProps<BottomTabsParams, 'Home'>;
+
+export const HomeScreen = ({ navigation }: Props): JSX.Element => {
   return (
     <StandardWrapper>
       <View style={styles.scroll}>
-        <BalanceCard onTopUp={() => {}} onSend={() => {}} />
+        <BalanceCard
+          onTopUp={() => {}}
+          onSend={() => {
+            navigation.navigate('PayIn');
+          }}
+        />
 
         <SummaryRow />
 

@@ -1,17 +1,10 @@
 import { JSX } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { colors as staticColors } from '../../../shared/theme/colors';
-
-import {
-  BodyText,
-  formatAmount,
-  formatDate,
-  LabelText,
-  useAppTheme,
-  widthFullScreen,
-} from '../../../shared';
-import { StatusBadge } from './StatusBadge';
-import { PayIn } from '../../../domain';
+import { PayIn } from '../../domain';
+import { useAppTheme, colors as staticColors } from '../theme';
+import { BodyText, LabelText } from './TextGeneric';
+import { formatAmount, formatDate, widthFullScreen } from '../utils';
+import { StatusBadge } from '../../presentation';
 
 interface TransactionItemProps {
   item: PayIn;
