@@ -9,6 +9,5 @@
     "/src/presentation"
   ],
   "exportall.config.relExclusion": [
-    "/src/presentation/components/home/SummaryRow.tsx"
   ]
 }

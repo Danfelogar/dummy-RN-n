@@ -1,9 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 
-import { AppToast, NavigationMain, PortalProvider, theme } from './src';
+import {
+  AppToast,
+  NavigationMain,
+  PortalProvider,
+  theme,
+  useOfflineQueueProcessor,
+} from './src';
 
 function App() {
+  useOfflineQueueProcessor();
+
   return (
     <NavigationContainer>
       <PaperProvider theme={theme}>

@@ -54,4 +54,5 @@ export const colors = {
   statusValidatedText: '#1E40AF',
   statusCreatedBg: '#F3F4F6',
   statusCreatedText: '#374151',
+  warningLight: '#FEF3C7',
 };
