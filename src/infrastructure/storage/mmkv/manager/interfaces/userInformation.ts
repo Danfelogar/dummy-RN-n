@@ -1,15 +1,16 @@
+import { UserInformation } from '../../../../../domain';
+
 export interface UserInformationState {
   //state
-  name: string;
-  email: string;
-  accountNumber: string;
-  availableBalance: number;
-  spent: number;
-  monthIncome: number;
+  userDetails: UserInformation;
   //Actions
+  getAllUserInformation: () => UserInformation;
   setAvailableBalance: (balance: number) => void;
   cleanState: () => void;
 }
 
 export interface UserInformationWithoutActions
-  extends Omit<UserInformationState, 'setAvailableBalance' | 'cleanState'> {}
+  extends Omit<
+    UserInformationState,
+    'setAvailableBalance' | 'cleanState' | 'getAllUserInformation'
+  > {}

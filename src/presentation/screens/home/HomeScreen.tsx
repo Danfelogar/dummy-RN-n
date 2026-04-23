@@ -61,24 +61,14 @@ const transactions: PayIn[] = MOCK_TRANSACTIONS.map(dto =>
 );
 
 export const HomeScreen = (): JSX.Element => {
-  const [snackbarVisible] = useState(true);
-  const availableBalance = '$12,450.80';
-  const monthIncome = '+$4,230';
-  const spent = '-$1,120';
-  const activeSavingsCount = 2;
-
   return (
     <StandardWrapper>
       <View style={styles.scroll}>
-        <BalanceCard
-          balance={availableBalance}
-          onTopUp={() => {}}
-          onSend={() => {}}
-        />
+        <BalanceCard onTopUp={() => {}} onSend={() => {}} />
 
-        <SummaryRow monthIncome={monthIncome} spent={spent} />
+        <SummaryRow />
 
-        <ActiveGoalsCard savingsCount={activeSavingsCount} onPress={() => {}} />
+        <ActiveGoalsCard savingsCount={2} onPress={() => {}} />
 
         <RecentActivity
           transactions={transactions}
@@ -87,7 +77,7 @@ export const HomeScreen = (): JSX.Element => {
         />
       </View>
 
-      <PayInSnackbar visible={snackbarVisible} onView={() => {}} />
+      <PayInSnackbar visible onView={() => {}} />
     </StandardWrapper>
   );
 };

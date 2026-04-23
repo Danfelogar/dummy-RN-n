@@ -2,6 +2,7 @@ import { JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
   BodyText,
+  formatAmount,
   LabelText,
   TitleText,
   useAppTheme,
@@ -9,20 +10,19 @@ import {
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
 import { Button } from 'react-native-paper';
+import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
 
 interface BalanceCardProps {
-  balance: string;
   onTopUp?: () => void;
   onSend?: () => void;
 }
 
 export const BalanceCard = ({
-  balance,
   onTopUp,
   onSend,
 }: BalanceCardProps): JSX.Element => {
   const { colors } = useAppTheme();
-
+  const { userDetails } = userInformationStorage();
   return (
     <View style={[styles.card, { backgroundColor: colors.surface }]}>
       <View style={styles.header}>
@@ -46,7 +46,7 @@ export const BalanceCard = ({
         style={styles.balanceAmount}
         color={colors.onSurface}
       >
-        {balance}
+        {formatAmount(userDetails.available_balance, '+')}
       </TitleText>
 
       <View style={styles.actions}>

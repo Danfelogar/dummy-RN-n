@@ -6,19 +6,14 @@ import {
   useAppTheme,
   widthFullScreen,
   colors as staticColors,
+  formatAmount,
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
+import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
 
-interface SummaryRowProps {
-  monthIncome: string;
-  spent: string;
-}
-
-export const SummaryRow = ({
-  monthIncome,
-  spent,
-}: SummaryRowProps): JSX.Element => {
+export const SummaryRow = (): JSX.Element => {
   const { colors } = useAppTheme();
+  const { userDetails } = userInformationStorage();
   return (
     <View style={styles.row}>
       {/* Month Income */}
@@ -36,7 +31,7 @@ export const SummaryRow = ({
           color={staticColors.incomeText}
           style={styles.amount}
         >
-          {monthIncome}
+          {formatAmount(userDetails.month_income, '+')}
         </BodyText>
       </View>
 
@@ -46,7 +41,7 @@ export const SummaryRow = ({
           {HOME_STRINGS.spent}
         </LabelText>
         <BodyText size="large" color={colors.onSurface} style={styles.amount}>
-          {spent}
+          {formatAmount(userDetails.spent, 'FAILED')}
         </BodyText>
       </View>
     </View>

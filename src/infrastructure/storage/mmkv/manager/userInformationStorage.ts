@@ -7,12 +7,14 @@ import {
 } from './interfaces';
 
 export const INIT_USER_INFORMATION_STATE: UserInformationWithoutActions = {
-  name: 'John Doe',
-  email: '****oe@example.com',
-  accountNumber: '****789',
-  availableBalance: 99.5,
-  spent: 1120,
-  monthIncome: 4230,
+  userDetails: {
+    name: 'John Doe',
+    email: '****oe@example.com',
+    account_number: '****789',
+    available_balance: 99.5,
+    spent: 1120,
+    month_income: 4230,
+  },
 };
 
 export const userInformationStorage = create<UserInformationState>()(
@@ -23,18 +25,18 @@ export const userInformationStorage = create<UserInformationState>()(
       setAvailableBalance: (balance: number) =>
         set(state => ({ ...state, availableBalance: balance })),
 
+      getAllUserInformation: () => {
+        const { userDetails } = get();
+        return userDetails;
+      },
+
       cleanState: () => set(() => ({ ...INIT_USER_INFORMATION_STATE })),
     }),
     {
       name: 'user-information-storage',
       storage: createJSONStorage(() => mmkvAdapter),
       partialize: state => ({
-        name: state.name,
-        email: state.email,
-        accountNumber: state.accountNumber,
-        availableBalance: state.availableBalance,
-        spent: state.spent,
-        monthIncome: state.monthIncome,
+        userDetails: state.userDetails,
       }),
     },
   ),
