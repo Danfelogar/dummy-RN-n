@@ -10,6 +10,9 @@ import {
   userInformationStorage,
 } from '../../../infrastructure';
 import { FEE_RATE_FRONTEND, MIN_FEE_FRONTEND } from '@env';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabsParams } from '../../navigation';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 export const feeCalculation = (amount: number): number => {
   const FEE_RATE = FEE_RATE_FRONTEND ?? 0.045;
@@ -57,7 +60,13 @@ export type PayInModalState =
       date: Date;
     };
 
+type NavigationProp = BottomTabScreenProps<
+  BottomTabsParams,
+  'PayIn'
+>['navigation'];
+
 export const usePayInForm = () => {
+  const navigation = useNavigation<NavigationProp>();
   const availableBalance = userInformationStorage(
     state => state.userDetails.available_balance,
   );
@@ -166,6 +175,7 @@ export const usePayInForm = () => {
 
   const dismissModal = useCallback(() => {
     setModalState({ visible: false });
+    navigation.navigate('Home');
   }, []);
 
   return {
