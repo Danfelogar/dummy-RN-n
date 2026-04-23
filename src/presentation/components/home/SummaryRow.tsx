@@ -19,7 +19,6 @@ export const SummaryRow = ({
   spent,
 }: SummaryRowProps): JSX.Element => {
   const { colors } = useAppTheme();
-
   return (
     <View style={styles.row}>
       {/* Month Income */}

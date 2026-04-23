@@ -62,7 +62,6 @@ const transactions: PayIn[] = MOCK_TRANSACTIONS.map(dto =>
 
 export const HomeScreen = (): JSX.Element => {
   const [snackbarVisible] = useState(true);
-  // Derived values — move to ViewModel/UseCase when wiring real data
   const availableBalance = '$12,450.80';
   const monthIncome = '+$4,230';
   const spent = '-$1,120';
