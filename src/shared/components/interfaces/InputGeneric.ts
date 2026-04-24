@@ -1,5 +1,6 @@
-import { Control, FieldValues, Path } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleProp, ViewStyle } from 'react-native';
+
+import { Control, FieldValues, Path } from 'react-hook-form';
 
 export interface InputGenericProps<T extends FieldValues> {
   // React Hook Form

@@ -1,4 +1,5 @@
 import { Animated, StyleSheet } from 'react-native';
+
 import { FC, ReactNode, useRef, useEffect } from 'react';
 
 import { Portal } from './Portal';
@@ -25,6 +26,7 @@ export const Modal: FC<Props> = ({
 
   useEffect(() => {
     handleAnimated();
+     
   }, [visibility]);
 
   const handleAnimated = () => {

@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
 import NetInfo, { type NetInfoState } from '@react-native-community/netinfo';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useInternetStatus = () => {
   const [isConnected, setIsConnected] = useState<boolean>(true);

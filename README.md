@@ -468,3 +468,11 @@ Tests:       167 passed, 167 total
 Snapshots:   0 total
 Time:        3.954 s
 ```
+
+## CI/CD Pipeline
+
+The pipeline is implemented with **GitHub Actions** and runs automatically on every push or pull request targeting `master`.
+
+### Pipeline Stages
+
+install → lint → test → build-android → build-ios → deploy

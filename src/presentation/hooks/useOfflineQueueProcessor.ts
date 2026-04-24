@@ -8,9 +8,10 @@
 //       - "Could not send your payment"        (on failure)
 
 import { useEffect, useRef } from 'react';
-import { showToast, useInternetStatus } from '../../shared';
-import { container, useOfflineQueueStore } from '../../infrastructure';
+
 import { QueuedPayIn } from '../../application';
+import { container, useOfflineQueueStore } from '../../infrastructure';
+import { showToast, useInternetStatus } from '../../shared';
 
 export function useOfflineQueueProcessor(): void {
   const { isConnected, isInternetReachable } = useInternetStatus();
@@ -77,6 +78,6 @@ export function useOfflineQueueProcessor(): void {
       .finally(() => {
         runningRef.current = false;
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [isOnline]);
 }

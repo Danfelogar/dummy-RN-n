@@ -1,5 +1,6 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Surface, Divider } from 'react-native-paper';
+
+import Clipboard from '@react-native-clipboard/clipboard';
 import {
   Receipt,
   Copy,
@@ -7,7 +8,9 @@ import {
   Landmark,
   Banknote,
 } from 'lucide-react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
+import { Surface, Divider } from 'react-native-paper';
+
+import { PayIn, PayinDTO } from '../../../domain';
 import {
   BodyText,
   colors,
@@ -16,7 +19,6 @@ import {
   widthFullScreen,
 } from '../../../shared';
 import { TRANSACTION_DETAILS_STRINGS } from '../../screens';
-import { PayIn, PayinDTO } from '../../../domain';
 import { StatusBadge } from '../home';
 
 const PAYMENT_METHOD_ICON: Record<string, React.ReactNode> = {

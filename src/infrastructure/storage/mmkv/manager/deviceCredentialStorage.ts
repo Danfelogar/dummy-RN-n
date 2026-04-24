@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { mmkvAdapter } from '../mmkvStorage';
+
 import { DeviceCredential } from '../../../../domain/entities/deviceCredential';
-import { IDeviceCredentialRepository } from '../../../../application/repositories/IDeviceCredentialRepository';
+import { mmkvAdapter } from '../mmkvStorage';
 import {
   DeviceCredentialState,
   DeviceCredentialWithoutActions,

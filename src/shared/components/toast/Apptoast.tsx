@@ -1,10 +1,5 @@
-import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import Toast, {
-  BaseToast,
-  ToastConfig,
-  ToastConfigParams,
-} from 'react-native-toast-message';
+
 import {
   CheckCircle2,
   XCircle,
@@ -12,11 +7,16 @@ import {
   Info,
   X,
 } from 'lucide-react-native';
+import React from 'react';
+import Toast, {
+  ToastConfig,
+  ToastConfigParams,
+} from 'react-native-toast-message';
 
 import { ToastType, TOAST_STRINGS } from './toast.strings';
-import { BodyText, TitleText } from '../TextGeneric';
 import { colors } from '../../theme';
 import { widthFullScreen } from '../../utils';
+import { BodyText, TitleText } from '../TextGeneric';
 
 interface ToastVisualConfig {
   icon: React.ReactNode;

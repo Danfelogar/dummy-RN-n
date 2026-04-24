@@ -5,11 +5,12 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
-import { ArrowLeft, WifiOff } from 'lucide-react-native';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackMainParams } from '../../navigation';
-import { useTransactionDetails } from '../../hooks';
+import { ArrowLeft, WifiOff } from 'lucide-react-native';
+import { Surface, Text } from 'react-native-paper';
+
+import { TRANSACTION_DETAILS_STRINGS } from './transactiondetails.strings';
 import {
   BodyText,
   colors,
@@ -18,8 +19,9 @@ import {
   TitleText,
   widthFullScreen,
 } from '../../../shared';
-import { TRANSACTION_DETAILS_STRINGS } from './transactiondetails.strings';
 import { BlockchainVerifiedCard, TransactionInfoCard } from '../../components';
+import { useTransactionDetails } from '../../hooks';
+import { RootStackMainParams } from '../../navigation';
 
 type Props = NativeStackScreenProps<RootStackMainParams, 'DetailsHistory'>;
 

@@ -23,7 +23,7 @@ function freshGetDb() {
   jest.mock('react-native-nitro-sqlite', () => ({
     open: mockOpen,
   }));
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+   
   return require('../nitroSQLiteDb').getDb as () => typeof mockConnection;
 }
 

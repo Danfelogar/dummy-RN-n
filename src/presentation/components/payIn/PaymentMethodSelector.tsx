@@ -1,11 +1,12 @@
-import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+
 import { CreditCard, Banknote, Coins } from 'lucide-react-native';
-import { PaymentMethod } from '../../../domain';
-import { PAY_IN_STRINGS } from '../../screens';
+import React from 'react';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import { Text, useTheme } from 'react-native-paper';
+
 import { colors } from '../../../shared';
+import { PAY_IN_STRINGS } from '../../screens';
 
 const PAYMENT_OPTIONS = [
   {

@@ -4,6 +4,16 @@ module.exports = {
   plugins: ['import'],
   rules: {
     'import/no-unresolved': 'off',
+    'import/named': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+      },
+    ],
     'import/order': [
       'error',
       {

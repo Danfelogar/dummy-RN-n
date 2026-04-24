@@ -4,22 +4,24 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
 } from 'react-native';
-import { Button, Surface, Text } from 'react-native-paper';
+
 import { Info, WifiOff } from 'lucide-react-native';
-import { colors } from '../../../shared/theme/colors';
-import { usePayInForm } from '../../hooks';
+import { Button, Surface, Text } from 'react-native-paper';
+
 import { PAY_IN_STRINGS } from './payIn.string';
-import {
-  PayInResultModal,
-  PayInSummaryCard,
-  PaymentMethodSelector,
-} from '../../components';
 import {
   heightFullScreen,
   InputGeneric,
   isIOS,
   StandardWrapper,
 } from '../../../shared';
+import { colors } from '../../../shared/theme/colors';
+import {
+  PayInResultModal,
+  PayInSummaryCard,
+  PaymentMethodSelector,
+} from '../../components';
+import { usePayInForm } from '../../hooks';
 import { HOME_STRINGS } from '../home';
 
 export const PayInScreen = () => {

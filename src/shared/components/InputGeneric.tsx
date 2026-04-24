@@ -1,5 +1,6 @@
 import { Controller, FieldValues } from 'react-hook-form';
 import { TextInput } from 'react-native-paper';
+
 import { InputGenericProps } from './interfaces';
 
 /**

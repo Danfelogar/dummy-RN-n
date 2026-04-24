@@ -11,8 +11,9 @@
  * Key format: PEM (base64-encoded DER wrapped in -----BEGIN/END-----)
  * Key size:   2048 bits (safe default; 4096 available if needed)
  */
-import QuickCrypto from 'react-native-quick-crypto';
 import { Buffer } from 'buffer';
+
+import QuickCrypto from 'react-native-quick-crypto';
 
 export interface RsaKeyPair {
   publicKeyPem: string; // PEM — share with backend

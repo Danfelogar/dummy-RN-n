@@ -1,5 +1,6 @@
 import { render, fireEvent } from '@testing-library/react-native';
 import { useForm } from 'react-hook-form';
+
 import { InputGeneric } from '../InputGeneric';
 
 const TestWrapper = ({

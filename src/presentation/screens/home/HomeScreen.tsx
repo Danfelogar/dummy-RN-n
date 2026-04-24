@@ -1,6 +1,9 @@
-import { JSX } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { JSX } from 'react';
+import { Text } from 'react-native-paper';
+
 import {
   colors,
   EmptyState,
@@ -18,10 +21,9 @@ import {
   RecentActivity,
   SummaryRow,
 } from '../../components';
-import { BottomTabsParams } from '../../navigation';
 import { useTransactionHistory } from '../../hooks';
+import { BottomTabsParams } from '../../navigation';
 import { TRANSACTION_HISTORY_STRINGS } from '../transactionHistory';
-import { Text } from 'react-native-paper';
 
 type Props = BottomTabScreenProps<BottomTabsParams, 'Home'>;
 

@@ -1,8 +1,10 @@
-import { JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { colors as staticColors } from '../../../shared/theme/colors';
+
+import { JSX } from 'react';
+
 import { PayinStatus } from '../../../domain';
 import { LabelText, widthFullScreen } from '../../../shared';
+import { colors as staticColors } from '../../../shared/theme/colors';
 
 interface StatusBadgeProps {
   status: PayinStatus;

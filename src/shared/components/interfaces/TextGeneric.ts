@@ -1,4 +1,5 @@
 import { StyleProp, TextStyle } from 'react-native';
+
 import type { ThemeProp } from 'react-native-paper/lib/typescript/types';
 
 export type TextVariant =

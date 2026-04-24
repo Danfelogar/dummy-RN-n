@@ -1,4 +1,4 @@
-import { CreatePayInDTO, PayIn } from '../../../../../domain';
+import { CreatePayInDTO } from '../../../../../domain';
 
 export interface QueuedPayInItem {
   /** Preserved from the original attempt so the retry is idempotent */

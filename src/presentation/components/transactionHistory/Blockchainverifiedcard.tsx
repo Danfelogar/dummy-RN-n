@@ -1,9 +1,10 @@
 import { View, StyleSheet } from 'react-native';
-import { Surface, Button } from 'react-native-paper';
-import { ShieldCheck } from 'lucide-react-native';
 
-import { TRANSACTION_DETAILS_STRINGS } from '../../screens';
+import { ShieldCheck } from 'lucide-react-native';
+import { Surface, Button } from 'react-native-paper';
+
 import { BodyText, colors, TitleText, widthFullScreen } from '../../../shared';
+import { TRANSACTION_DETAILS_STRINGS } from '../../screens';
 
 interface BlockchainVerifiedCardProps {
   hash?: string;

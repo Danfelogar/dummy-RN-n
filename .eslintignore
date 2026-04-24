@@ -1,0 +1,8 @@
+# Jest config files — jest globals are not recognized by ESLint
+jest.config.js
+jest.setup.js
+
+# Other files to ignore
+node_modules/
+android/
+ios/

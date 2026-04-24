@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -7,9 +6,11 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
+
+import { useCallback } from 'react';
 import { Text, Surface } from 'react-native-paper';
+
 import { TRANSACTION_HISTORY_STRINGS } from './transactionhistory.strings';
-import { useTransactionHistory } from '../../hooks';
 import { PayIn } from '../../../domain';
 import {
   colors,
@@ -22,6 +23,7 @@ import {
   TransactionItem,
   widthFullScreen,
 } from '../../../shared';
+import { useTransactionHistory } from '../../hooks';
 
 const ItemSeparator = () => <View style={styles.separator} />;
 

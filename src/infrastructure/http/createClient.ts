@@ -1,7 +1,8 @@
 // http/client/createClient.ts
 import axios, { AxiosInstance } from 'axios';
-import { applyLoggerInterceptor } from './interceptors/logger.interceptor';
+
 import { applyErrorInterceptor } from './interceptors/error.interceptor';
+import { applyLoggerInterceptor } from './interceptors/logger.interceptor';
 
 interface ClientOptions {
   serviceName?: string; // Label

@@ -1,7 +1,9 @@
-import { JSX } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { colors as staticColors } from '../../../shared/theme/colors';
+
+import { JSX } from 'react';
+
 import { BodyText, LabelText, widthFullScreen } from '../../../shared';
+import { colors as staticColors } from '../../../shared/theme/colors';
 import { HOME_STRINGS } from '../../screens';
 
 interface PayInSnackbarProps {

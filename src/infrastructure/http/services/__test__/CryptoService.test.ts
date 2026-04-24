@@ -1,5 +1,14 @@
+import {
+  encryptAesGcm,
+  decryptAesGcm,
+} from '../../../../shared/crypto/aes-gcm';
+import {
+  generateRsaKeyPair,
+  computeFingerprint,
+  rsaDecrypt,
+} from '../../../../shared/crypto/rsa';
 import { CryptoService } from '../CryptoService';
-// Mocks
+
 jest.mock('../../../../shared/crypto/rsa', () => ({
   generateRsaKeyPair: jest.fn(),
   computeFingerprint: jest.fn(),
@@ -10,17 +19,6 @@ jest.mock('../../../../shared/crypto/aes-gcm', () => ({
   encryptAesGcm: jest.fn(),
   decryptAesGcm: jest.fn(),
 }));
-
-import {
-  generateRsaKeyPair,
-  computeFingerprint,
-  rsaDecrypt,
-} from '../../../../shared/crypto/rsa';
-
-import {
-  encryptAesGcm,
-  decryptAesGcm,
-} from '../../../../shared/crypto/aes-gcm';
 
 // Fixtures
 const MOCK_PUBLIC_KEY = 'mock-public-key-pem';

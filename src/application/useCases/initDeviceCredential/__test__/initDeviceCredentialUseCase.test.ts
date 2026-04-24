@@ -1,3 +1,4 @@
+import { generateUuid } from '../../../../shared';
 import { InitDeviceCredentialUseCase } from '../initDeviceCredentialUseCase';
 
 jest.mock('../../../../shared', () => ({
@@ -7,8 +8,6 @@ jest.mock('../../../../shared', () => ({
 jest.mock('../../../../domain', () => ({
   // Domain types are interfaces/value-objects
 }));
-
-import { generateUuid } from '../../../../shared';
 
 // Fixtures
 const MOCK_UUID = 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee';
@@ -61,7 +60,7 @@ describe('InitDeviceCredentialUseCase', () => {
 
   describe('when a valid credential already exists', () => {
     it('should return the existing credential without creating a new one', async () => {
-      const { useCase, credentialRepo, cryptoService } = buildMocks();
+      const { useCase, credentialRepo } = buildMocks();
       credentialRepo.find.mockResolvedValue(MOCK_EXISTING_CREDENTIAL);
 
       const result = await useCase.execute();

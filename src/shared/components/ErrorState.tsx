@@ -1,5 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { Text } from 'react-native-paper';
+
 import { TRANSACTION_HISTORY_STRINGS } from '../../presentation';
 import { colors } from '../theme';
 import { heightFullScreen, widthFullScreen } from '../utils';

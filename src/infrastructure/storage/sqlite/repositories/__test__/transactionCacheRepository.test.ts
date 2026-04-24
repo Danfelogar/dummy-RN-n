@@ -1,6 +1,6 @@
-import { getDb } from '../../nitroSQLiteDb';
-import { TransactionRecord } from '../../../../../domain';
 import { TransactionCacheRepository } from '..';
+import { TransactionRecord } from '../../../../../domain';
+import { getDb } from '../../nitroSQLiteDb';
 
 //  Mock getDb
 jest.mock('../../nitroSQLiteDb', () => ({

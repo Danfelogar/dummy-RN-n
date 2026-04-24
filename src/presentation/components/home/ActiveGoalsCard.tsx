@@ -1,5 +1,8 @@
-import { JSX } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import { ArrowUpRight } from 'lucide-react-native';
+import { JSX } from 'react';
+
 import {
   BodyText,
   LabelText,
@@ -7,7 +10,7 @@ import {
   colors as staticColors,
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
-import { ArrowUpRight } from 'lucide-react-native';
+
 
 interface ActiveGoalsCardProps {
   savingsCount: number;

@@ -1,5 +1,9 @@
-import { JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
+
+import { JSX } from 'react';
+import { Button } from 'react-native-paper';
+
+import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
 import {
   BodyText,
   formatAmount,
@@ -9,8 +13,8 @@ import {
   widthFullScreen,
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
-import { Button } from 'react-native-paper';
-import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
+
+
 
 interface BalanceCardProps {
   onTopUp?: () => void;

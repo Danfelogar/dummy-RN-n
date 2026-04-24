@@ -1,5 +1,8 @@
-import { JSX } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import { JSX } from 'react';
+
+import { PayIn } from '../../../domain';
 import {
   BodyText,
   heightFullScreen,
@@ -10,7 +13,6 @@ import {
   widthFullScreen,
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
-import { PayIn } from '../../../domain';
 
 interface RecentActivityProps {
   transactions: PayIn[];

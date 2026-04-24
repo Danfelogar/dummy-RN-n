@@ -1,9 +1,10 @@
 import { FC, createContext, useContext, useEffect } from 'react';
+
 import { ElementForContext, PortalProps } from '../interfaces';
 
 export const PortalContext = createContext({
-  addComponent: (element: ElementForContext) => {},
-  removeComponent: (name: string) => {},
+  addComponent: (_element: ElementForContext) => {},
+  removeComponent: (_name: string) => {},
 });
 
 export const Portal: FC<PortalProps> = ({ children, name }) => {

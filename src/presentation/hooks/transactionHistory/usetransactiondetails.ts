@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+
 import { PayIn, PayinDTO, PayInMapper } from '../../../domain';
-import { showToast, useInternetStatus } from '../../../shared';
 import { container } from '../../../infrastructure';
+import { showToast, useInternetStatus } from '../../../shared';
 
 export interface UseTransactionDetailsResult {
   transaction: PayIn | null;

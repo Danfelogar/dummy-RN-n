@@ -1,8 +1,10 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
+
+import React from 'react';
 import { Text } from 'react-native-paper';
-import { PAY_IN_STRINGS } from '../../screens';
+
 import { colors } from '../../../shared';
+import { PAY_IN_STRINGS } from '../../screens';
 
 interface PayInSummaryCardProps {
   feeEstimate: number;

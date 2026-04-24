@@ -1,6 +1,8 @@
-import { JSX, ReactNode } from 'react';
 import { StatusBar, useColorScheme, ViewStyle } from 'react-native';
+
+import { JSX, ReactNode } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
 import { colors } from '../theme';
 
 export const StandardWrapper = ({

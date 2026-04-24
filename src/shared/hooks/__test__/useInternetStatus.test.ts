@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react-native';
+
 import { useInternetStatus } from '../useInternetStatus';
 
 jest.mock('@react-native-community/netinfo', () => ({

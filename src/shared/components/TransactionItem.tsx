@@ -1,12 +1,15 @@
-import { JSX } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { JSX } from 'react';
+
+
 import { PayIn } from '../../domain';
 import { useAppTheme, colors as staticColors } from '../theme';
 import { BodyText, LabelText } from './TextGeneric';
-import { formatAmount, formatDate, widthFullScreen } from '../utils';
 import { RootStackMainParams, StatusBadge } from '../../presentation';
+import { formatAmount, formatDate, widthFullScreen } from '../utils';
 
 interface TransactionItemProps {
   item: PayIn;

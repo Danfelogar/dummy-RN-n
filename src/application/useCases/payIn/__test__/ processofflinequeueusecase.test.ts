@@ -1,8 +1,8 @@
+import { PayInMapper } from '../../../../domain';
 import {
   ProcessOfflineQueueUseCase,
   QueuedPayIn,
 } from '../processOfflineQueueUseCase';
-import { PayInMapper } from '../../../../domain';
 
 jest.mock('../../../../domain', () => ({
   PayInMapper: {

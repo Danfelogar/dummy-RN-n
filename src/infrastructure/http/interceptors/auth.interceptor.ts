@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
-import { summarizePem } from '../../../shared/crypto/rsa';
+
 import { InitDeviceCredentialUseCase } from '../../../application';
+import { summarizePem } from '../../../shared/crypto/rsa';
 
 export const applyAuthInterceptor = (
   instance: AxiosInstance,

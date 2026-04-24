@@ -1,8 +1,10 @@
-import { RefreshCw, WifiOff } from 'lucide-react-native';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import { RefreshCw, WifiOff } from 'lucide-react-native';
 import { Text } from 'react-native-paper';
-import { colors } from '../theme';
+
 import { TRANSACTION_HISTORY_STRINGS } from '../../presentation';
+import { colors } from '../theme';
 import { widthFullScreen } from '../utils';
 
 interface OfflineBannerProps {

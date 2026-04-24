@@ -35,7 +35,6 @@ export class ProcessOfflineQueueUseCase {
   async execute(
     queued: QueuedPayIn | null,
     dequeue: () => void,
-    deductBalance: (amount: number) => Promise<void>,
   ): Promise<ProcessOfflineQueueResult> {
     if (!queued) {
       return { processed: false };
@@ -50,10 +49,9 @@ export class ProcessOfflineQueueUseCase {
       // Persist into local SQLite cache
       await this.cacheRepo.upsertMany([PayInMapper.domainToRecord(payIn)]);
       // Deduct from the available balance stored locally
-      const { available_balance, spent } =
+      const { available_balance } =
         await this.userInfoRepo.getAllUserInformation();
       const newBalance = available_balance - queued.dto.amount;
-      const newSpent = spent + queued.dto.amount;
       await this.userInfoRepo.setAvailableBalance(newBalance);
       // Flush the queue — must happen AFTER the API call succeeds
       dequeue();

@@ -2,9 +2,9 @@
 //   TransactionRecord ↔ PayIn  (SQLite cache ↔ domain)
 
 import { PayIn } from '../entities';
+import { TransactionRecord } from '../entities/transactionRecord';
 import { Amount } from '../value-objects/amount';
 import { PayinDTO } from '../value-objects/payInDTO';
-import { TransactionRecord } from '../entities/transactionRecord';
 
 export class PayInMapper {
   //API DTO → Domain
@@ -27,18 +27,18 @@ export class PayInMapper {
   //Domain → API DTO
   static toDTO(entity: PayIn): PayinDTO {
     return {
-      id: entity['id'],
-      idempotency_key: entity['idempotencyKey'],
-      customer_id: entity['customerId'],
+      id: entity.id,
+      idempotency_key: entity.idempotencyKey,
+      customer_id: entity.customerId,
       amount: entity.getAmount(),
-      currency: entity['currency'],
-      payment_method: entity['paymentMethod'],
-      status: entity['status'],
-      description: entity['description'],
-      failure_reason: entity['failureReason'],
-      encrypted_payload: entity['encryptedPayload'],
-      created_at: entity['createdAt'].toISOString(),
-      updated_at: entity['updatedAt'].toISOString(),
+      currency: entity.currency,
+      payment_method: entity.paymentMethod,
+      status: entity.status,
+      description: entity.description,
+      failure_reason: entity.failureReason,
+      encrypted_payload: entity.encryptedPayload,
+      created_at: entity.createdAt.toISOString(),
+      updated_at: entity.updatedAt.toISOString(),
     };
   }
   //SQLite TransactionRecord → Domain
@@ -61,18 +61,18 @@ export class PayInMapper {
   //Domain → SQLite TransactionRecord
   static domainToRecord(entity: PayIn): TransactionRecord {
     return {
-      id: entity['id'],
-      idempotency_key: entity['idempotencyKey'],
-      customer_id: entity['customerId'],
+      id: entity.id,
+      idempotency_key: entity.idempotencyKey,
+      customer_id: entity.customerId,
       amount: entity.getAmount(),
-      currency: entity['currency'],
-      payment_method: entity['paymentMethod'],
-      status: entity['status'],
-      description: entity['description'],
-      failure_reason: entity['failureReason'],
-      encrypted_payload: entity['encryptedPayload'],
-      created_at: entity['createdAt'].toISOString(),
-      updated_at: entity['updatedAt'].toISOString(),
+      currency: entity.currency,
+      payment_method: entity.paymentMethod,
+      status: entity.status,
+      description: entity.description,
+      failure_reason: entity.failureReason,
+      encrypted_payload: entity.encryptedPayload,
+      created_at: entity.createdAt.toISOString(),
+      updated_at: entity.updatedAt.toISOString(),
       cached_at: Date.now(),
     };
   }

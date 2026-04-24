@@ -1,6 +1,6 @@
+import { summarizePem } from '../../../../shared/crypto/rsa';
 import { applyAuthInterceptor } from '../auth.interceptor';
 
-// Mocks
 jest.mock('../../../../shared/crypto/rsa', () => ({
   summarizePem: jest.fn(() => 'mock-summary'),
 }));
@@ -8,8 +8,6 @@ jest.mock('../../../../shared/crypto/rsa', () => ({
 jest.mock('../../../../application', () => ({
   InitDeviceCredentialUseCase: jest.fn(),
 }));
-
-import { summarizePem } from '../../../../shared/crypto/rsa';
 // Fixtures
 const MOCK_FINGERPRINT = 'aa:bb:cc:dd:ee:ff:00:11:22:33';
 

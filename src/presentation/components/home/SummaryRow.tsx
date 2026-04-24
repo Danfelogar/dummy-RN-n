@@ -1,5 +1,8 @@
-import { JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
+
+import { JSX } from 'react';
+
+import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
 import {
   BodyText,
   LabelText,
@@ -9,7 +12,6 @@ import {
   formatAmount,
 } from '../../../shared';
 import { HOME_STRINGS } from '../../screens';
-import { userInformationStorage } from '../../../infrastructure/storage/mmkv';
 
 export const SummaryRow = (): JSX.Element => {
   const { colors } = useAppTheme();

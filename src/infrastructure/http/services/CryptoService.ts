@@ -1,15 +1,14 @@
-import QuickCrypto from 'react-native-quick-crypto';
-import {
-  generateRsaKeyPair,
-  computeFingerprint,
-  rsaDecrypt,
-} from '../../../shared/crypto/rsa';
+import { ICryptoService } from '../../../application';
 import {
   encryptAesGcm,
   decryptAesGcm,
   AesGcmEncryptResult,
 } from '../../../shared/crypto/aes-gcm';
-import { ICryptoService } from '../../../application';
+import {
+  generateRsaKeyPair,
+  computeFingerprint,
+  rsaDecrypt,
+} from '../../../shared/crypto/rsa';
 
 /**
  * CryptoService

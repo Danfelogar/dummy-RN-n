@@ -11,9 +11,10 @@
 
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { PayIn } from '../../../domain';
-import { showToast, useInternetStatus } from '../../../shared';
 import { container } from '../../../infrastructure';
+import { showToast, useInternetStatus } from '../../../shared';
 
 export interface TransactionHistoryFormValues {
   search: string;
@@ -72,7 +73,7 @@ export const useTransactionHistory = () => {
   // Initial load + re-fetch when connectivity changes (offline → online)
   useEffect(() => {
     fetchTransactions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [isOnline]);
 
   //Client-side search filter

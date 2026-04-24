@@ -4,9 +4,10 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import { Text, Button, Divider } from 'react-native-paper';
+
 import { CircleCheck } from 'lucide-react-native';
-import { PAY_IN_STRINGS } from '../../screens';
+import { Text, Button, Divider } from 'react-native-paper';
+
 import {
   colors,
   formatDate,
@@ -15,6 +16,7 @@ import {
   widthFullScreen,
 } from '../../../shared';
 import { PayInModalState } from '../../hooks';
+import { PAY_IN_STRINGS } from '../../screens';
 
 const formatCurrency = (amount: number) =>
   `${PAY_IN_STRINGS.CURRENCY_SYMBOL}${amount.toFixed(2)} ${

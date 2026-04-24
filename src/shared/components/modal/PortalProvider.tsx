@@ -1,4 +1,5 @@
 import { FC, Fragment, ReactNode, useState } from 'react';
+
 import { PortalContext } from './Portal';
 
 interface PortalProviderProps {

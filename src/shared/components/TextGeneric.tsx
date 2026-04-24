@@ -1,4 +1,5 @@
 import { Text } from 'react-native-paper';
+
 import { BodyTextProps, LabelTextProps, TitleTextProps } from './interfaces';
 
 /**

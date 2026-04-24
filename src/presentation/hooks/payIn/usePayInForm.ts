@@ -1,18 +1,19 @@
+import { FEE_RATE_FRONTEND, MIN_FEE_FRONTEND } from '@env';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { useState, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { PAY_IN_STRINGS } from '../../screens';
-import { generateUuid, showToast, useInternetStatus } from '../../../shared';
+
 import {
   container,
   useOfflineQueueStore,
   userInformationStorage,
 } from '../../../infrastructure';
-import { FEE_RATE_FRONTEND, MIN_FEE_FRONTEND } from '@env';
-import { useNavigation } from '@react-navigation/native';
+import { generateUuid, showToast, useInternetStatus } from '../../../shared';
 import { BottomTabsParams } from '../../navigation';
+import { PAY_IN_STRINGS } from '../../screens';
 
 export const feeCalculation = (amount: number): number => {
   const FEE_RATE = FEE_RATE_FRONTEND ?? 0.045;
@@ -170,13 +171,14 @@ export const usePayInForm = () => {
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [isOnline, hasPending, enqueue, form],
   );
 
   const dismissModal = useCallback(() => {
     setModalState({ visible: false });
     navigation.navigate('Home');
+     
   }, []);
 
   return {

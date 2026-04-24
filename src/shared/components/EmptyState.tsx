@@ -1,8 +1,10 @@
 import { StyleSheet, View } from 'react-native';
-import { TRANSACTION_HISTORY_STRINGS } from '../../presentation';
+
 import { Text } from 'react-native-paper';
-import { heightFullScreen, widthFullScreen } from '../utils';
+
+import { TRANSACTION_HISTORY_STRINGS } from '../../presentation';
 import { colors } from '../theme';
+import { heightFullScreen, widthFullScreen } from '../utils';
 
 export const EmptyState = () => (
   <View style={styles.emptyContainer}>
