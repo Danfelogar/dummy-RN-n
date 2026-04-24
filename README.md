@@ -19,6 +19,8 @@
 - [Project Structure](#project-structure)
 - [Demo & Screenshots](#demo--screenshots)
 - [Unit Test Report](#unit-test-report)
+- [CI/CD Pipeline](#cicd-pipeline)
+  - [Pipeline Stages](#pipeline-stages)
 
 ---
 
@@ -38,12 +40,11 @@ TumiPay is a mobile wallet simulation built with React Native that enables users
 
 3. The full transaction history is persisted in SQLite as an offline backup. The offline queue supports up to one pending PayIn request at a time, which is flushed automatically upon connectivity restoration.
 
-
 ### Implemented
 
 1. **RSA + AES-GCM hybrid encryption** — On first launch the app generates an RSA key pair. The public key is transmitted over HTTPS to establish a secure channel between the client and the backend, mitigating man-in-the-middle attacks. The symmetric session secret is subsequently encrypted using AES-GCM before being written to local storage, ensuring the raw key is never persisted in plaintext.
 
-2. **Request payload encryption** — Every outbound request includes the device's public key in its headers. Transaction payloads are encrypted prior to transmission so the backend can verify and decrypt them on arrival. ⚠️ *Note: in a production architecture this flow should be inverted — the server holds the private keys and clients encrypt against the server's public key.*
+2. **Request payload encryption** — Every outbound request includes the device's public key in its headers. Transaction payloads are encrypted prior to transmission so the backend can verify and decrypt them on arrival. ⚠️ _Note: in a production architecture this flow should be inverted — the server holds the private keys and clients encrypt against the server's public key._
 
 ### Recommended Improvements
 
@@ -63,8 +64,8 @@ TumiPay is a mobile wallet simulation built with React Native that enables users
 
 ## Architecture Diagrams
 
-| **Clean Architecture** *(Ports & Adapters)* | **PayIn Transaction Flow** |
-| :---: | :---: |
+|      **Clean Architecture** _(Ports & Adapters)_      |          **PayIn Transaction Flow**           |
+| :---------------------------------------------------: | :-------------------------------------------: |
 | ![](src/shared/assets/tumipay_clean_architecture.svg) | ![](src/shared/assets/tumipay_payin_flow.svg) |
 
 ---
@@ -73,11 +74,11 @@ TumiPay is a mobile wallet simulation built with React Native that enables users
 
 Three complementary layers handle state at different scopes and lifetimes:
 
-| Tool | Scope | Persistence | Used for |
-|---|---|---|---|
-| **Zustand** | Global / cross-screen | Via `zustand/persist` | Offline queue, user information |
-| **MMKV** | Disk | Native key-value | Device credentials, balance, queue backup |
-| **NitroSQLite** | Disk | Relational | Full transaction history cache |
+| Tool            | Scope                 | Persistence           | Used for                                  |
+| --------------- | --------------------- | --------------------- | ----------------------------------------- |
+| **Zustand**     | Global / cross-screen | Via `zustand/persist` | Offline queue, user information           |
+| **MMKV**        | Disk                  | Native key-value      | Device credentials, balance, queue backup |
+| **NitroSQLite** | Disk                  | Relational            | Full transaction history cache            |
 
 Zustand was chosen over Redux for its minimal boilerplate and first-class support for the `persist` middleware, which made the offline queue trivial to back with MMKV. React Context was ruled out for anything involving frequent writes — balance updates and queue mutations — to avoid unnecessary re-renders across the tree. AsyncStorage was ruled out in favour of MMKV due to its synchronous reads and significantly better performance on large serialized payloads.
 
@@ -116,18 +117,23 @@ The offline queue follows a separate error path: if `processOfflineQueueUseCase`
 # Setup
 
 1. Rename `.env.example` to `.env`:
+
 ```bash
 cp .env.example .env
 ```
+
 Or manually rename the file from `.env.example` to `.env`
 
 2. Install all dependencies with:
+
 ```bash
 pnpm run install-secure
 ```
+
 ## Backend
 
 3. Run backend with dummy data(json-server):
+
 ```bash
 pnpm run backend
 ```
@@ -135,35 +141,43 @@ pnpm run backend
 ## Frontend
 
 4. Install iOS pods using the custom script:
+
 ```bash
 pnpm run ios-preBuild
 ```
 
 5. Run Metro in another terminal tab (Optional):
+
 ```bash
 pnpm start
 ```
 
 6. Run in iOS simulator. You can also open Xcode and run 2 different schemas (Debug or Release). With this command you can run in debug mode:
+
 ```bash
 pnpm run ios
 ```
+
 Or use the custom simulator configuration:
+
 ```bash
 pnpm run ios-custom
 ```
 
 7. Run in Android simulator:
+
 ```bash
 pnpm run android
 ```
 
 8. If you want to run unit tests with coverage, use this command (optional):
+
 ```bash
 pnpm run test
 ```
 
 If you have any problems, these are my actual global versions:
+
 ```bash
 node -v                -> v24.15.0
 pnpm -v                -> (your version)
@@ -173,16 +187,19 @@ npx metro --version    -> 0.81.5
 ### Other commands:
 
 1. Clean Android build:
+
 ```bash
 pnpm run android-clean
 ```
 
 2. Clean iOS build:
+
 ```bash
 pnpm run ios-clean
 ```
 
 3. Reset Metro cache:
+
 ```bash
 pnpm run reset-cache
 ```
@@ -424,43 +441,43 @@ src
 
 ## App Screenshots
 
-|                                 |                  Mobile                    |
-| :------------------------------:| :-----------------------------------------:|
-|               Home              |  ![](src/shared/assets/Screenshot1.png)    |
-|               PayIn             |  ![](src/shared/assets/Screenshot2.png)    |
-|               History           |  ![](src/shared/assets/Screenshot3.png)    |
-|               Details           |  ![](src/shared/assets/Screenshot4.png)    |
+|         |                 Mobile                 |
+| :-----: | :------------------------------------: |
+|  Home   | ![](src/shared/assets/Screenshot1.png) |
+|  PayIn  | ![](src/shared/assets/Screenshot2.png) |
+| History | ![](src/shared/assets/Screenshot3.png) |
+| Details | ![](src/shared/assets/Screenshot4.png) |
 
 ## Unit Test Report
 
 ```bash
 --------------------------------------------|---------|----------|---------|---------|-------------------
-File                                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File                                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 --------------------------------------------|---------|----------|---------|---------|-------------------
-All files                                   |   98.38 |    90.66 |   98.07 |   98.33 |                   
- application/useCases/initDeviceCredential  |     100 |      100 |     100 |     100 |                   
-  initDeviceCredentialUseCase.ts            |     100 |      100 |     100 |     100 |                   
- application/useCases/payIn                 |     100 |      100 |     100 |     100 |                   
-  processOfflineQueueUseCase.ts             |     100 |      100 |     100 |     100 |                   
- infrastructure/http/interceptors           |     100 |      100 |     100 |     100 |                   
-  auth.interceptor.ts                       |     100 |      100 |     100 |     100 |                   
- infrastructure/http/services               |     100 |      100 |     100 |     100 |                   
-  CryptoService.ts                          |     100 |      100 |     100 |     100 |                   
- infrastructure/storage/mmkv/manager        |     100 |      100 |     100 |     100 |                   
-  userInformationStorage.ts                 |     100 |      100 |     100 |     100 |                   
- infrastructure/storage/sqlite              |   94.44 |     87.5 |     100 |   94.11 |                   
-  nitroSQLiteDb.ts                          |   94.44 |     87.5 |     100 |   94.11 | 39                
- infrastructure/storage/sqlite/repositories |     100 |    88.88 |     100 |     100 |                   
-  index.ts                                  |       0 |        0 |       0 |       0 |                   
-  transactionCacheRepository.ts             |     100 |    88.88 |     100 |     100 | 82,96             
- presentation/hooks/payIn                   |     100 |     87.5 |     100 |     100 |                   
-  usePayInForm.ts                           |     100 |     87.5 |     100 |     100 | 18-19             
- shared/components                          |   66.66 |     87.5 |      75 |   66.66 |                   
-  InputGeneric.tsx                          |   66.66 |     87.5 |      75 |   66.66 | 63-64             
- shared/hooks                               |     100 |      100 |     100 |     100 |                   
-  useInternetStatus.ts                      |     100 |      100 |     100 |     100 |                   
- shared/utils                               |     100 |      100 |     100 |     100 |                   
-  formatDate.ts                             |     100 |      100 |     100 |     100 |                   
+All files                                   |   98.38 |    90.66 |   98.07 |   98.33 |
+ application/useCases/initDeviceCredential  |     100 |      100 |     100 |     100 |
+  initDeviceCredentialUseCase.ts            |     100 |      100 |     100 |     100 |
+ application/useCases/payIn                 |     100 |      100 |     100 |     100 |
+  processOfflineQueueUseCase.ts             |     100 |      100 |     100 |     100 |
+ infrastructure/http/interceptors           |     100 |      100 |     100 |     100 |
+  auth.interceptor.ts                       |     100 |      100 |     100 |     100 |
+ infrastructure/http/services               |     100 |      100 |     100 |     100 |
+  CryptoService.ts                          |     100 |      100 |     100 |     100 |
+ infrastructure/storage/mmkv/manager        |     100 |      100 |     100 |     100 |
+  userInformationStorage.ts                 |     100 |      100 |     100 |     100 |
+ infrastructure/storage/sqlite              |   94.44 |     87.5 |     100 |   94.11 |
+  nitroSQLiteDb.ts                          |   94.44 |     87.5 |     100 |   94.11 | 39
+ infrastructure/storage/sqlite/repositories |     100 |    88.88 |     100 |     100 |
+  index.ts                                  |       0 |        0 |       0 |       0 |
+  transactionCacheRepository.ts             |     100 |    88.88 |     100 |     100 | 82,96
+ presentation/hooks/payIn                   |     100 |     87.5 |     100 |     100 |
+  usePayInForm.ts                           |     100 |     87.5 |     100 |     100 | 18-19
+ shared/components                          |   66.66 |     87.5 |      75 |   66.66 |
+  InputGeneric.tsx                          |   66.66 |     87.5 |      75 |   66.66 | 63-64
+ shared/hooks                               |     100 |      100 |     100 |     100 |
+  useInternetStatus.ts                      |     100 |      100 |     100 |     100 |
+ shared/utils                               |     100 |      100 |     100 |     100 |
+  formatDate.ts                             |     100 |      100 |     100 |     100 |
 --------------------------------------------|---------|----------|---------|---------|-------------------
 
 Test Suites: 11 passed, 11 total

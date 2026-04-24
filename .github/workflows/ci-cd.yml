@@ -50,7 +50,7 @@ jobs:
         run: pnpm lint
 
       - name: Run unit tests with coverage
-        run: pnpm test --ci --forceExit --detectOpenHandles
+        run: pnpm run test
 
       # Upload coverage so it is visible in the Actions run summary
       - name: Upload coverage report
@@ -60,7 +60,7 @@ jobs:
           path: coverage/
           retention-days: 7
 
-# JOB 2 — Android build (only on master push)
+  # JOB 2 — Android build (only on master push)
   build-android:
     name: Build Android APK
     runs-on: ubuntu-latest
@@ -127,7 +127,7 @@ jobs:
           path: android/app/build/outputs/apk/release/app-release.apk
           retention-days: 7
 
-# JOB 3 — iOS build (only on master push)
+  # JOB 3 — iOS build (only on master push)
   build-ios:
     name: Build iOS App Bundle
     runs-on: macos-latest
@@ -202,7 +202,7 @@ jobs:
           path: build/ShellTechnicalTestRN.app.zip
           retention-days: 7
 
-# JOB 4 — Summary (after both builds succeed)
+  # JOB 4 — Summary (after both builds succeed)
   deploy-artifacts:
     name: Deployment Summary
     runs-on: ubuntu-latest
