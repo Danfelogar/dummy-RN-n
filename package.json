@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "reset-cache": "react-native start --reset-cache",
-    "test": "jest",
+    "test": "npx jest --coverage",
     "backend": "node src-dummy-backend/server.js",
     "install-secure": "pnpm install --ignore-scripts"
   },
@@ -60,6 +60,7 @@
     "@react-native/jest-preset": "0.85.2",
     "@react-native/metro-config": "0.85.2",
     "@react-native/typescript-config": "0.85.2",
+    "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^29.5.13",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.0",

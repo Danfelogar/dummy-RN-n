@@ -8,7 +8,6 @@
 //   so a duplicate cannot be created even if the request was partially sent.
 
 import { CreatePayInDTO, PayIn, PayInMapper } from '../../../domain';
-import { PayinDTO } from '../../../domain/value-objects/payInDTO';
 import {
   IPayInRepository,
   ITransactionCacheRepository,

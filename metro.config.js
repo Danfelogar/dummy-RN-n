@@ -6,6 +6,17 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
  *
  * @type {import('@react-native/metro-config').MetroConfig}
  */
-const config = {};
+
+const config = {
+  resolver: {
+    blockList: [
+      /.*\/__test__\/.*/,
+      /.*\.test\.(ts|tsx|js|jsx)$/,
+      /.*\.spec\.(ts|tsx|js|jsx)$/,
+      /node_modules\/.*\/@testing-library\/.*/,
+      /node_modules\/.*\/jest.*/,
+    ],
+  },
+};
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);

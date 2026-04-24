@@ -51,6 +51,7 @@ export type PayInFormValues = z.infer<ReturnType<typeof buildPayInSchema>>;
 
 export type PayInModalState =
   | { visible: false }
+  | { visible: false; status: 'idle' }
   | { visible: true; status: 'processing' }
   | {
       visible: true;

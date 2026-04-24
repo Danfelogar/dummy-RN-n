@@ -23,7 +23,6 @@ import { ICryptoService } from '../../../application';
  */
 export class CryptoService implements ICryptoService {
   // Key generation
-
   async generateRsaKeyPair(): Promise<{
     publicKeyPem: string;
     privateKeyPem: string;
@@ -35,9 +34,7 @@ export class CryptoService implements ICryptoService {
   async computeFingerprint(publicKeyPem: string): Promise<string> {
     return computeFingerprint(publicKeyPem);
   }
-
   // At-rest protection of the private key (AES-256-GCM)
-
   /**
    * Serialises the AesGcmEncryptResult as JSON so it can be stored
    * as a single string field in DeviceCredential.keyPair.privateKeyPem.
