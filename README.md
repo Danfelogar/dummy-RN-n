@@ -1,5 +1,27 @@
 # TumiPay — React Native Mobile Technical Assessment
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Security Architecture](#security-architecture)
+  - [Assumptions](#assumptions)
+  - [Implemented](#implemented)
+  - [Recommended Improvements](#recommended-improvements)
+  - [Identified Risks](#identified-risks)
+- [Architecture Diagrams](#architecture-diagrams)
+- [State Management](#state-management)
+- [Error Handling](#error-handling)
+- [Stack](#stack)
+- [Setup](#setup)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Other Commands](#other-commands)
+- [Project Structure](#project-structure)
+- [Demo & Screenshots](#demo--screenshots)
+- [Unit Test Report](#unit-test-report)
+
+---
+
 ## Overview
 
 TumiPay is a mobile wallet simulation built with React Native that enables users to create and manage PayIn transactions with full offline-first support. The application handles real-time payment processing when connectivity is available, and transparently enqueues pending requests when the device is offline — automatically flushing the queue once the connection is restored. Users can monitor their balance, income, and expenses at a glance, browse a paginated transaction history, and drill into individual transaction details by ID. The core feature set covers PayIn creation with form validation powered by `react-hook-form` and `Zod`, transaction listing and filtering, local data persistence via `NitroSQLite` for offline backup and cache, and a global toast notification system for user feedback and error handling.
@@ -41,12 +63,9 @@ TumiPay is a mobile wallet simulation built with React Native that enables users
 
 ## Architecture Diagrams
 
-| |
-| :---: |
-| **Clean Architecture** *(Ports & Adapters)* |
-| ![](src/shared/assets/tumipay_clean_architecture.svg) |
-| **PayIn Transaction Flow** |
-| ![](src/shared/assets/tumipay_payin_flow.svg) |
+| **Clean Architecture** *(Ports & Adapters)* | **PayIn Transaction Flow** |
+| :---: | :---: |
+| ![](src/shared/assets/tumipay_clean_architecture.svg) | ![](src/shared/assets/tumipay_payin_flow.svg) |
 
 ---
 
