@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { PAY_IN_STRINGS } from '../../screens';
 import { generateUuid, showToast, useInternetStatus } from '../../../shared';
 import {
@@ -12,7 +13,6 @@ import {
 import { FEE_RATE_FRONTEND, MIN_FEE_FRONTEND } from '@env';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabsParams } from '../../navigation';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 export const feeCalculation = (amount: number): number => {
   const FEE_RATE = FEE_RATE_FRONTEND ?? 0.045;

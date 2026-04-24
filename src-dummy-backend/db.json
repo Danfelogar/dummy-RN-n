@@ -181,6 +181,34 @@
       "encrypted_payload": "{\"ciphertext\":\"a339150bbfc1c4d07297d0de5fe137798d1d493ed52c74145114c49220fc4615aa6facdb9f2a8396cef947845daa295ae31e0d61464e3560641384d161d03f07023bc82b2c654a49d10e54cdfabeff95a363f8a8fea74ce8\",\"iv\":\"608d0e06444f9b95e1cfee3b\",\"authTag\":\"56a3920113087f6b0517ac21f4f017e6\",\"keyHex\":\"66c97b87cdc058f5733103541a84af15831b361459c7c0b5cb4ddf6849fb569b\",\"algorithm\":\"AES-256-GCM\",\"encryptedAt\":\"2026-04-23T19:16:36.742Z\"}",
       "created_at": "2026-04-23T19:16:37.313Z",
       "updated_at": "2026-04-23T19:16:49.323Z"
+    },
+    {
+      "id": "txn_7540cc37",
+      "idempotency_key": "0e756571-68a2-4a76-ba1c-332144461e22",
+      "customer_id": "111111",
+      "amount": 10,
+      "currency": "USD",
+      "payment_method": "BANK_TRANSFER",
+      "status": "PROCESSED",
+      "description": "ios test",
+      "failure_reason": null,
+      "encrypted_payload": "{\"ciphertext\":\"1946ddfa2731505219e0bae7c1a69cb14cfdd562de3f7cecf9a6b76098e95114095b92003c85ea402cdef031f26b5199002c73cedaa5ad1d9ad481ef3459d80740b09c7106ad4cd5476e5ebf1f7049cff99871cc391a7e586e0f0a4947f6\",\"iv\":\"8fa8c5f50bfc56bdc03c5391\",\"authTag\":\"98ebc0f1829ca19831cbda10ae806037\",\"keyHex\":\"a0c4061a258f08593db12ed78cbe2986cac35e1af226db9a035fb1cc812a5cc1\",\"algorithm\":\"AES-256-GCM\",\"encryptedAt\":\"2026-04-24T01:48:17.951Z\"}",
+      "created_at": "2026-04-24T01:48:18.035Z",
+      "updated_at": "2026-04-24T01:48:30.053Z"
+    },
+    {
+      "id": "txn_61d2390b",
+      "idempotency_key": "e8d5c7ae-8f79-41b5-9878-b5b6192d69b2",
+      "customer_id": "111111",
+      "amount": 15,
+      "currency": "USD",
+      "payment_method": "CARD",
+      "status": "PROCESSED",
+      "description": "test android",
+      "failure_reason": null,
+      "encrypted_payload": "{\"ciphertext\":\"6c6fc1286bac6e65ea1836e7a9578c2421ea6caa5fa03dac58d22476e653af0411786e1ccded535286a5e754a6121fbea94e417f4908a293fd70ee91463dd6c74db69ef70ff37d032f13653ee1a1c5897f28d934bde9d9b4d8\",\"iv\":\"b927b37ac7e511a49ba1bb08\",\"authTag\":\"a8cd3cf26f47e985d0817b64cb2e5b0c\",\"keyHex\":\"fa8d4292c612ce53d316cb494d68a7ecbda5851d2351cf6b0dbcafb3d6afd025\",\"algorithm\":\"AES-256-GCM\",\"encryptedAt\":\"2026-04-24T01:50:49.239Z\"}",
+      "created_at": "2026-04-24T01:50:50.028Z",
+      "updated_at": "2026-04-24T01:51:02.038Z"
     }
   ],
   "idempotency_keys": []
