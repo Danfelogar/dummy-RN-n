@@ -411,3 +411,41 @@ src
 |               PayIn             |  ![](src/shared/assets/Screenshot2.png)    |
 |               History           |  ![](src/shared/assets/Screenshot3.png)    |
 |               Details           |  ![](src/shared/assets/Screenshot4.png)    |
+
+## Unit Test Report
+
+```bash
+--------------------------------------------|---------|----------|---------|---------|-------------------
+File                                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------------------|---------|----------|---------|---------|-------------------
+All files                                   |   98.38 |    90.66 |   98.07 |   98.33 |                   
+ application/useCases/initDeviceCredential  |     100 |      100 |     100 |     100 |                   
+  initDeviceCredentialUseCase.ts            |     100 |      100 |     100 |     100 |                   
+ application/useCases/payIn                 |     100 |      100 |     100 |     100 |                   
+  processOfflineQueueUseCase.ts             |     100 |      100 |     100 |     100 |                   
+ infrastructure/http/interceptors           |     100 |      100 |     100 |     100 |                   
+  auth.interceptor.ts                       |     100 |      100 |     100 |     100 |                   
+ infrastructure/http/services               |     100 |      100 |     100 |     100 |                   
+  CryptoService.ts                          |     100 |      100 |     100 |     100 |                   
+ infrastructure/storage/mmkv/manager        |     100 |      100 |     100 |     100 |                   
+  userInformationStorage.ts                 |     100 |      100 |     100 |     100 |                   
+ infrastructure/storage/sqlite              |   94.44 |     87.5 |     100 |   94.11 |                   
+  nitroSQLiteDb.ts                          |   94.44 |     87.5 |     100 |   94.11 | 39                
+ infrastructure/storage/sqlite/repositories |     100 |    88.88 |     100 |     100 |                   
+  index.ts                                  |       0 |        0 |       0 |       0 |                   
+  transactionCacheRepository.ts             |     100 |    88.88 |     100 |     100 | 82,96             
+ presentation/hooks/payIn                   |     100 |     87.5 |     100 |     100 |                   
+  usePayInForm.ts                           |     100 |     87.5 |     100 |     100 | 18-19             
+ shared/components                          |   66.66 |     87.5 |      75 |   66.66 |                   
+  InputGeneric.tsx                          |   66.66 |     87.5 |      75 |   66.66 | 63-64             
+ shared/hooks                               |     100 |      100 |     100 |     100 |                   
+  useInternetStatus.ts                      |     100 |      100 |     100 |     100 |                   
+ shared/utils                               |     100 |      100 |     100 |     100 |                   
+  formatDate.ts                             |     100 |      100 |     100 |     100 |                   
+--------------------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 11 passed, 11 total
+Tests:       167 passed, 167 total
+Snapshots:   0 total
+Time:        3.954 s
+```
