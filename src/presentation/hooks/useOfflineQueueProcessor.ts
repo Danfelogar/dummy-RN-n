@@ -44,12 +44,7 @@ export function useOfflineQueueProcessor(): void {
     };
 
     container.processOfflineQueue
-      .execute(
-        queuedPayIn,
-        dequeue,
-        // deductBalance is handled inside the use-case; pass a no-op here because UserInformationRepository is already wired in the container.
-        async () => {},
-      )
+      .execute(queuedPayIn, dequeue)
       .then(result => {
         if (result.processed) {
           showToast({
@@ -78,6 +73,5 @@ export function useOfflineQueueProcessor(): void {
       .finally(() => {
         runningRef.current = false;
       });
-     
   }, [isOnline]);
 }

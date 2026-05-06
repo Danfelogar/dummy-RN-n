@@ -1,59 +1,61 @@
 // Dependency-injection container
+
 import {
   CreatePayInUseCase,
   GetPayInUseCase,
+  ICryptoService,
+  IDeviceCredentialRepository,
   InitDeviceCredentialUseCase,
+  IPayInRepository,
+  ITransactionCacheRepository,
+  IUserInformationRepository,
   ListPayInsUseCase,
   ListTransactionsUseCase,
   ProcessOfflineQueueUseCase,
 } from '../../application';
-import { tumiPayClient } from '../http';
-import { CryptoService, PayInHttpRepository } from '../http/services';
-import {
-  DeviceCredentialRepository,
-  TransactionCacheRepository,
-  UserInformationRepository,
-} from '../storage';
-//Infrastructure singletons
-const cryptoService = new CryptoService();
-const credentialRepo = new DeviceCredentialRepository();
-const userInfoRepo = new UserInformationRepository();
-const payInRepo = new PayInHttpRepository(tumiPayClient);
-const cacheRepo = new TransactionCacheRepository();
-//Use-case singletons
-const initDeviceCredential = new InitDeviceCredentialUseCase(
-  credentialRepo,
-  cryptoService,
-);
 
-const createPayIn = new CreatePayInUseCase(
-  payInRepo,
-  cryptoService,
-  cacheRepo,
-  userInfoRepo,
-);
+// Explicit typing of external dependencies
+export interface ContainerDEpendencies {
+  cryptoService: ICryptoService;
+  credentialRepo: IDeviceCredentialRepository;
+  userInfoRepo: IUserInformationRepository;
+  payInRepo: IPayInRepository;
+  cacheRepo: ITransactionCacheRepository;
+}
 
-const getPayIn = new GetPayInUseCase(payInRepo, cacheRepo);
+// Public container API: use cases only
+export interface AppContainer {
+  initDEviceCRedential: InitDeviceCredentialUseCase;
+  createPayIn: CreatePayInUseCase;
+  getPayIn: GetPayInUseCase;
+  listPayIns: ListPayInsUseCase;
+  listTransactions: ListTransactionsUseCase;
+  processOfflineQueue: ProcessOfflineQueueUseCase;
+}
 
-const listPayIns = new ListPayInsUseCase(payInRepo);
-
-const listTransactions = new ListTransactionsUseCase(payInRepo, cacheRepo);
-
-const processOfflineQueue = new ProcessOfflineQueueUseCase(
-  payInRepo,
-  cacheRepo,
-  userInfoRepo,
-);
-
-export const container = {
-  // Repos
-  userInfoRepo,
-  cacheRepo,
-  // Use-cases
-  initDeviceCredential,
-  createPayIn,
-  getPayIn,
-  listPayIns,
-  listTransactions,
-  processOfflineQueue,
-} as const;
+//Factory
+export const buildContainer = (deps: ContainerDEpendencies): AppContainer => {
+  return {
+    initDEviceCRedential: new InitDeviceCredentialUseCase(
+      deps.credentialRepo,
+      deps.cryptoService,
+    ),
+    createPayIn: new CreatePayInUseCase(
+      deps.payInRepo,
+      deps.cryptoService,
+      deps.cacheRepo,
+      deps.userInfoRepo,
+    ),
+    getPayIn: new GetPayInUseCase(deps.payInRepo, deps.cacheRepo),
+    listPayIns: new ListPayInsUseCase(deps.payInRepo),
+    listTransactions: new ListTransactionsUseCase(
+      deps.payInRepo,
+      deps.cacheRepo,
+    ),
+    processOfflineQueue: new ProcessOfflineQueueUseCase(
+      deps.payInRepo,
+      deps.cacheRepo,
+      deps.userInfoRepo,
+    ),
+  };
+};
